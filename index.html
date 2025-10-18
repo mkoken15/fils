@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHRONOS-X: Horloge Cosmique et Multimodale (FINAL)</title>
+    
+    <style>
+        /* BASE & VARIABLES */
+        :root {
+            --color-primary: #00e0ff; /* Bleu Cyan Futuriste */
+            --color-secondary: #ff007f; /* Magenta Électrique */
+            --color-success: #39ff14; /* Vert Néon pour Actif */
+            --color-danger: #ff5e00; /* Orange Vif pour Alerte */
+            --color-bg-dark: #0a0a1a; /* Fond Très Sombre */
+            --color-card-bg: #1a1a30; /* Arrière-plan de Carte Sombre */
+            --color-text-light: #e0e0ff;
+            --font-display: 'Consolas', monospace; /* Police Tech */
+            --glow-effect: 0 0 10px var(--color-primary), 0 0 20px var(--color-primary);
+        }
+
+        /* GÉNÉRAL */
+        body {
+            font-family: var(--font-display);
+            background-color: var(--color-bg-dark);
+            color: var(--color-text-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 10px;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at top left, #1a0a30 0%, #0a0a1a 80%);
+        }
+
+        .container {
+            width: 95%;
+            max-width: 800px;
+            background: var(--color-card-bg);
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 224, 255, 0.2);
+            padding: 25px;
+            border: 1px solid rgba(0, 224, 255, 0.3);
+            perspective: 1000px;
+        }
+
+        /* TITRES */
+        h2, h3 {
+            color: var(--color-primary);
+            text-shadow: var(--glow-effect);
+            border-bottom: 2px solid rgba(0, 224, 255, 0.1);
+            padding-bottom: 5px;
+            margin-top: 25px;
+            font-size: 1.5em;
+        }
+
+        /* NAVIGATION (ONGLETS) */
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            transform-style: preserve-3d;
+        }
+
+        .tab-button {
+            flex: 1;
+            background: none;
+            border: none;
+            padding: 15px 10px;
+            color: #888;
+            font-size: 1em;
+            cursor: pointer;
+            transition: color 0.3s, background 0.3s, transform 0.3s;
+            position: relative;
+            z-index: 1;
+            text-transform: uppercase;
+        }
+
+        .tab-button.active {
+            color: var(--color-primary);
+            text-shadow: 0 0 5px var(--color-primary);
+            background: rgba(0, 224, 255, 0.1);
+            border-radius: 8px;
+            transform: translateZ(10px);
+        }
+
+        /* AFFICHAGES MAJEURS */
+        .display {
+            font-size: 5em;
+            font-weight: bold;
+            text-align: center;
+            margin: 30px 0 10px;
+            letter-spacing: 5px;
+            color: var(--color-primary);
+            text-shadow: var(--glow-effect);
+            background: linear-gradient(90deg, #1a1a30 5%, var(--color-card-bg) 95%);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        #localTimeDisplay { font-size: 6em; }
+        #cosmicDate { color: var(--color-secondary); font-size: 1.2em; }
+        #stopwatchDisplay { color: var(--color-secondary); text-shadow: 0 0 10px var(--color-secondary); }
+
+        /* BOUTONS GÉNÉRAUX */
+        button {
+            padding: 12px 20px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: var(--color-text-light);
+            transition: background 0.3s, box-shadow 0.3s;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        .btn-action { background-color: var(--color-primary); box-shadow: 0 0 8px var(--color-primary); }
+        .btn-action:hover { background-color: #00b3cc; box-shadow: 0 0 15px var(--color-primary); }
+        .btn-secondary { background-color: #555; }
+        .btn-secondary:hover { background-color: #777; }
+        .btn-danger { background-color: var(--color-danger); box-shadow: 0 0 8px var(--color-danger); }
+
+        /* INPUTS & SÉLECTEURS */
+        .input-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .input-group input, .input-group select {
+            padding: 10px;
+            background: #2b2b40;
+            border: 1px solid var(--color-primary);
+            color: var(--color-text-light);
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        
+        .input-group input:focus, .input-group select:focus {
+            border-color: var(--color-secondary);
+            outline: none;
+            box-shadow: 0 0 5px var(--color-secondary);
+        }
+
+        #alarmLabel, #timerLabel { width: 180px; }
+
+        /* LISTE DES ALARMES / TOURS */
+        .list-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            color: var(--color-secondary);
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(255, 0, 127, 0.3);
+            margin-top: 15px;
+        }
+
+        #alarmsList, #lapList {
+            list-style: none;
+            padding: 0;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .alarm-item, #lapList li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #333;
+            transition: background 0.2s;
+        }
+
+        .alarm-item:hover { background: rgba(0, 224, 255, 0.05); }
+
+        .alarm-info { flex-grow: 1; text-align: left; }
+        .alarm-time { font-weight: bold; color: var(--color-success); font-size: 1.1em; }
+        .alarm-label { font-size: 0.9em; color: #aaa; }
+
+        /* CONTRÔLES SPÉCIFIQUES */
+        .controls { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+
+        /* MODALE D'ALARME (EFFET ALERTE MAXIMALE) */
+        #alarmPopup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 0, 0, 0.95);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: pulse 0.5s infinite alternate;
+            box-shadow: inset 0 0 50px black;
+        }
+        
+        #alarmPopup h1 { font-size: 8em; color: yellow; text-shadow: 0 0 20px yellow; }
+        #alarmPopup h2 { font-size: 2em; color: white; margin-bottom: 30px; }
+
+        @keyframes pulse {
+            from { background: rgba(255, 0, 0, 0.95); }
+            to { background: rgba(255, 60, 60, 0.95); }
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="tabs">
+            <button class="tab-button active" onclick="showSection('clock')">Horloge Cosmique</button>
+            <button class="tab-button" onclick="showSection('alarm')">Protocoles Alarme</button>
+            <button class="tab-button" onclick="showSection('timer')">Minuteurs Dynamiques</button>
+            <button class="tab-button" onclick="showSection('stopwatch')">Chronomètre Tactique</button>
+        </div>
+
+        <div id="clockSection" class="content-section">
+            <h2>SYNCHRONISATION LOCALE (CEST)</h2>
+            <div id="localTimeDisplay" class="display">00:00:00</div>
+            <p id="cosmicDate" style="text-align: center; color: var(--color-secondary);"></p>
+            
+            <h3 style="margin-top: 40px;">RÉFÉRENCE UNIVERSELLE (UTC)</h3>
+            <div id="utcTimeDisplay" class="display" style="font-size: 3em; margin-top: 15px;">00:00:00 (UTC)</div>
+        </div>
+
+        <div id="alarmSection" class="content-section hidden">
+            <h2>CONFIGURATION ALARME</h2>
+            <div class="input-group">
+                <select id="alarmHourSelect"></select>
+                <select id="alarmMinuteSelect"></select>
+                <input type="text" id="alarmLabel" placeholder="Protocole (ex: Éveil Matinal)">
+            </div>
+            <div class="controls">
+                <button class="btn-action" onclick="setNewAlarm()">ENREGISTRER</button>
+            </div>
+            
+            <div class="list-header">
+                <span>HEURE</span>
+                <span>PROTOCOLE</span>
+                <span>ACTION</span>
+            </div>
+            <ul id="alarmsList">
+                <li id="noAlarmsMsg" style="text-align: center; color: #888;">Aucun protocole actif.</li>
+            </ul>
+        </div>
+        
+        <div id="timerSection" class="content-section hidden">
+            <h2>CRÉER UN MINUTEUR (Max 99:59:59)</h2>
+            <div class="input-group">
+                <input type="number" id="inputHours" placeholder="HH" min="0" max="99" value="0" style="width: 50px;">
+                <input type="number" id="inputMinutes" placeholder="MM" min="0" max="59" value="5" style="width: 50px;">
+                <input type="number" id="inputSeconds" placeholder="SS" min="0" max="59" value="0" style="width: 50px;">
+                <input type="text" id="timerLabel" placeholder="Étiquette (ex: Café)" style="width: 150px;">
+            </div>
+            <div class="controls">
+                <button class="btn-action" onclick="addDynamicTimer()">AJOUTER MINUTEUR</button>
+            </div>
+
+            <h3 style="margin-top: 30px;">MINUTEURS ACTIFS</h3>
+            <div class="list-header">
+                <span>RESTE</span>
+                <span>MISSION</span>
+                <span>ÉTAT</span>
+            </div>
+            <ul id="dynamicTimersList">
+                <li id="noTimersMsg" style="text-align: center; color: #888;">Aucun minuteur lancé.</li>
+            </ul>
+        </div>
+        
+        <div id="stopwatchSection" class="content-section hidden">
+            <h2>TEMPS ÉCOULÉ</h2>
+            <div id="stopwatchDisplay" class="display">00:00.00</div>
+            <div class="controls">
+                <button id="stopwatchStartBtn" class="btn-action" onclick="startStopwatch()">DÉMARRER</button>
+                <button id="stopwatchPauseBtn" class="btn-secondary hidden" onclick="pauseStopwatch()">PAUSE</button>
+                <button id="stopwatchLapBtn" class="btn-action hidden" onclick="lapStopwatch()">TOUR</button>
+                <button id="stopwatchResetBtn" class="btn-danger hidden" onclick="resetStopwatch()">RÉINITIALISER</button>
+            </div>
+
+            <h3 style="margin-top: 30px;">JOURNAL DES TOURS</h3>
+            <ol id="lapList"></ol>
+        </div>
+
+        <audio id="alarmSound" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto" loop></audio>
+        <div id="alarmPopup" class="hidden">
+            <h1 id="alarmPopupTime">00:00</h1>
+            <h2 id="alarmPopupLabel">ALARME PROTOCLAIRE ACTIVÉE !</h2>
+            <button class="btn-danger" onclick="stopAlarmSound()">ACKNOWLEDGE (Arrêter)</button>
+        </div>
+    </div>
+
+    <script>
+        
+        // =======================
+        // UTILITAIRES & ÉLÉMENTS GLOBALES
+        // =======================
+        
+        const alarmSound = document.getElementById('alarmSound');
+        const alarmPopup = document.getElementById('alarmPopup');
+        const alarmPopupTime = document.getElementById('alarmPopupTime');
+        const alarmPopupLabel = document.getElementById('alarmPopupLabel');
+        let isAlarmActive = false; 
+
+        /** Formatte les millisecondes en HH:MM:SS.MS ou MM:SS.MS */
+        function formatTime(ms, full = false) {
+            let totalSeconds = Math.floor(ms / 1000);
+            const hours = Math.floor(totalSeconds / 3600);
+            totalSeconds %= 3600;
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            const milliseconds = Math.floor((ms % 1000) / 10); 
+
+            const format = (n) => String(n).padStart(2, '0');
+            
+            if (full || ms >= 3600000) {
+                return `${format(hours)}:${format(minutes)}:${format(seconds)}.${format(milliseconds)}`;
+            } else if (ms >= 60000) {
+                return `${format(minutes)}:${format(seconds)}.${format(milliseconds)}`;
+            } else {
+                return `00:${format(seconds)}.${format(milliseconds)}`;
+            }
+        }
+        
+        /** Formatte l'heure absolue en HH:MM:SS */
+        function formatTimeAbsolute(ms) {
+            let totalSeconds = Math.floor(ms / 1000);
+            const hours = Math.floor(totalSeconds / 3600);
+            totalSeconds %= 3600;
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+
+            const format = (n) => String(n).padStart(2, '0');
+            return `${format(hours)}:${format(minutes)}:${format(seconds)}`;
+        }
+        
+        /** * Arrête l'alarme et masque la modale (Version ultra-robuste V3.0) 
+         * Fonction essentielle pour que le bouton ACKNOWLEDGE fonctionne.
+         */
+        function stopAlarmSound() {
+            if (isAlarmActive) {
+                // 1. Désactiver la boucle pour garantir l'arrêt immédiat
+                alarmSound.loop = false; 
+                
+                // 2. Mettre en pause et rembobiner
+                alarmSound.pause();
+                alarmSound.currentTime = 0;
+            }
+            
+            // 3. Masquer l'interface
+            alarmPopup.classList.add('hidden');
+            isAlarmActive = false;
+            
+            // 4. Réactiver la boucle pour le prochain déclenchement
+            alarmSound.loop = true; 
+        }
+
+        // =======================
+        // NAVIGATION PAR ONGLETS
+        // =======================
+
+        const sections = document.querySelectorAll('.content-section');
+        const tabButtons = document.querySelectorAll('.tab-button');
+        
+        function showSection(sectionId) {
+            // Arrêter le son si l'utilisateur navigue
+            stopAlarmSound(); 
+            
+            sections.forEach(section => {
+                section.classList.add('hidden');
+            });
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            document.getElementById(sectionId + 'Section').classList.remove('hidden');
+            document.querySelector(`[onclick="showSection('${sectionId}')"]`).classList.add('active');
+        }
+
+
+        // =======================
+        // 1. HORLOGE COSMIQUE
+        // =======================
+
+        const localTimeDisplay = document.getElementById('localTimeDisplay');
+        const utcTimeDisplay = document.getElementById('utcTimeDisplay');
+        const cosmicDate = document.getElementById('cosmicDate');
+        
+        function getCosmicDate(date) {
+            const startOfYear = new Date(date.getFullYear(), 0, 1);
+            const diff = date - startOfYear;
+            const oneDay = 1000 * 60 * 60 * 24;
+            const dayOfYear = Math.floor(diff / oneDay);
+            const solarCycle = date.getFullYear() % 11; 
+
+            return `Jour Séquentiel ${String(dayOfYear).padStart(3, '0')} | Référence Solaire ${solarCycle}`;
+        }
+
+        function updateClock() {
+            const now = new Date();
+            
+            // Heure Locale
+            const timeOptionsLocal = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            localTimeDisplay.innerText = now.toLocaleTimeString('fr-FR', timeOptionsLocal);
+
+            // Heure UTC (Universelle)
+            const timeOptionsUTC = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'UTC' };
+            utcTimeDisplay.innerText = now.toLocaleTimeString('fr-FR', timeOptionsUTC) + ' (UTC)';
+
+            // Date Cosmique/Locale
+            const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            cosmicDate.innerHTML = `Date Terrestre: ${now.toLocaleDateString('fr-FR', dateOptions)}<br>${getCosmicDate(now)}`;
+            
+            // Vérification des Alarmes
+            checkAlarms(now);
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock(); 
+
+
+        // =======================
+        // 2. PROTOCOLES ALARME
+        // =======================
+
+        const alarmHourSelect = document.getElementById('alarmHourSelect');
+        const alarmMinuteSelect = document.getElementById('alarmMinuteSelect');
+        const alarmLabelInput = document.getElementById('alarmLabel');
+        const alarmsList = document.getElementById('alarmsList');
+        const noAlarmsMsg = document.getElementById('noAlarmsMsg');
+
+        let alarms = []; 
+        let nextAlarmId = 1;
+
+        // Remplir les select box (Heures et Minutes)
+        function populateAlarmSelectors() {
+            let hourOptions = '<option selected hidden value="">HH</option>';
+            for (let i = 0; i <= 23; i++) {
+                let hour = String(i).padStart(2, '0');
+                hourOptions += `<option value="${hour}">${hour}</option>`;
+            }
+            alarmHourSelect.innerHTML = hourOptions;
+
+            let minuteOptions = '<option selected hidden value="">MM</option>';
+            for (let i = 0; i <= 59; i++) {
+                let minute = String(i).padStart(2, '0');
+                minuteOptions += `<option value="${minute}">${minute}</option>`;
+            }
+            alarmMinuteSelect.innerHTML = minuteOptions;
+        }
+        populateAlarmSelectors();
+
+        // Ajout d'une nouvelle alarme
+        function setNewAlarm() {
+            const hour = alarmHourSelect.value;
+            const minute = alarmMinuteSelect.value;
+            const label = alarmLabelInput.value.trim() || "Protocole Standard";
+
+            if (!hour || !minute) {
+                alert("Erreur: Spécification temporelle manquante (Heure/Minute).");
+                return;
+            }
+            
+            if (alarms.some(a => a.time === `${hour}:${minute}`)) {
+                alert("Erreur: Un protocole est déjà défini pour cette heure.");
+                return;
+            }
+
+            const newAlarm = {
+                id: nextAlarmId++,
+                time: `${hour}:${minute}`,
+                label: label,
+                active: true,
+            };
+
+            alarms.push(newAlarm);
+            renderAlarms();
+
+            // Réinitialiser les champs de saisie
+            alarmHourSelect.value = "";
+            alarmMinuteSelect.value = "";
+            alarmLabelInput.value = "";
+        }
+
+        // Affichage de la liste des alarmes
+        function renderAlarms() {
+            alarmsList.innerHTML = '';
+            if (alarms.length === 0) {
+                alarmsList.appendChild(noAlarmsMsg);
+                noAlarmsMsg.classList.remove('hidden');
+                return;
+            }
+            noAlarmsMsg.classList.add('hidden');
+
+            alarms.sort((a, b) => a.time.localeCompare(b.time)); 
+
+            alarms.forEach(alarm => {
+                const li = document.createElement('li');
+                li.className = 'alarm-item';
+                li.id = `alarm-${alarm.id}`;
+
+                li.innerHTML = `
+                    <div class="alarm-info">
+                        <div class="alarm-time">${alarm.time}</div>
+                        <div class="alarm-label">${alarm.label}</div>
+                    </div>
+                    <button class="btn-danger" onclick="deleteAlarm(${alarm.id})">TERMINER</button>
+                `;
+                alarmsList.appendChild(li);
+            });
+        }
+        
+        // Suppression d'une alarme
+        function deleteAlarm(id) {
+            alarms = alarms.filter(alarm => alarm.id !== id);
+            renderAlarms();
+        }
+
+        // Vérification du déclenchement des alarmes
+        function checkAlarms(now) {
+            if (isAlarmActive) return; // Ne vérifie pas si une alarme est déjà active
+
+            const currentHour = String(now.getHours()).padStart(2, '0');
+            const currentMinute = String(now.getMinutes()).padStart(2, '0');
+            const currentTime = `${currentHour}:${currentMinute}`;
+            
+            const triggeredAlarm = alarms.find(alarm => alarm.time === currentTime && alarm.active);
+            
+            if (triggeredAlarm) {
+                // Déclenchement
+                alarmSound.play();
+                alarmPopupTime.innerText = triggeredAlarm.time;
+                alarmPopupLabel.innerText = `${triggeredAlarm.label} - PROTOCOLE ACTIVÉ !`;
+                alarmPopup.classList.remove('hidden');
+                isAlarmActive = true;
+                
+                // On la désactive/réactive pour le jour suivant (récurrence quotidienne)
+                triggeredAlarm.active = false;
+                setTimeout(() => {
+                    triggeredAlarm.active = true;
+                }, 60000); 
+            }
+        }
+        
+        renderAlarms();
+
+
+        // =======================
+        // 3. MINUTEURS DYNAMIQUES
+        // =======================
+
+        const inputHours = document.getElementById('inputHours');
+        const inputMinutes = document.getElementById('inputMinutes');
+        const inputSeconds = document.getElementById('inputSeconds');
+        const timerLabelInput = document.getElementById('timerLabel');
+        const dynamicTimersList = document.getElementById('dynamicTimersList');
+        const noTimersMsg = document.getElementById('noTimersMsg');
+
+        let dynamicTimers = []; 
+        let nextTimerId = 1;
+
+        function addDynamicTimer() {
+            const h = parseInt(inputHours.value) || 0;
+            const m = parseInt(inputMinutes.value) || 0;
+            const s = parseInt(inputSeconds.value) || 0;
+            const label = timerLabelInput.value.trim() || "Minuteur Dynamique";
+
+            const durationMs = (h * 3600 + m * 60 + s) * 1000;
+            if (durationMs === 0) return alert("Veuillez définir une durée non nulle.");
+
+            const newTimer = {
+                id: nextTimerId++,
+                duration: durationMs,
+                remaining: durationMs,
+                label: label,
+                interval: null,
+                running: false,
+                displayElement: null,
+            };
+
+            dynamicTimers.push(newTimer);
+            renderDynamicTimers();
+            startDynamicTimer(newTimer.id);
+            
+            inputHours.value = 0; inputMinutes.value = 5; inputSeconds.value = 0; timerLabelInput.value = '';
+        }
+
+        function renderDynamicTimers() {
+            dynamicTimersList.innerHTML = '';
+            if (dynamicTimers.length === 0) {
+                dynamicTimersList.appendChild(noTimersMsg);
+                noTimersMsg.classList.remove('hidden');
+                return;
+            }
+            noTimersMsg.classList.add('hidden');
+
+            dynamicTimers.forEach(timer => {
+                const li = document.createElement('li');
+                li.className = 'timer-item';
+                li.id = `timer-item-${timer.id}`;
+                
+                li.innerHTML = `
+                    <div class="alarm-time" id="timer-display-${timer.id}">${formatTimeAbsolute(timer.remaining)}</div>
+                    <div class="alarm-label">${timer.label}</div>
+                    <div class="controls" style="margin: 0; gap: 5px;">
+                        <button class="btn-secondary" onclick="toggleDynamicTimer(${timer.id})">${timer.running ? 'PAUSE' : 'DÉMARRER'}</button>
+                        <button class="btn-danger" onclick="deleteDynamicTimer(${timer.id})">X</button>
+                    </div>
+                `;
+                dynamicTimersList.appendChild(li);
+                timer.displayElement = document.getElementById(`timer-display-${timer.id}`);
+                
+                if (timer.displayElement) {
+                    timer.displayElement.innerText = formatTimeAbsolute(timer.remaining);
+                }
+            });
+        }
+        
+        function startDynamicTimer(id) {
+            const timer = dynamicTimers.find(t => t.id === id);
+            if (!timer || timer.running) return;
+
+            timer.running = true;
+            timer.startTime = Date.now();
+            timer.targetTime = timer.startTime + timer.remaining;
+            
+            renderDynamicTimers(); 
+            
+            timer.interval = setInterval(() => {
+                timer.remaining = timer.targetTime - Date.now();
+                if (timer.remaining <= 0) {
+                    clearInterval(timer.interval);
+                    timer.remaining = 0;
+                    timer.running = false;
+                    
+                    // Alarme du minuteur
+                    if (!isAlarmActive) {
+                        alarmSound.play();
+                        alarmPopupTime.innerText = timer.label;
+                        alarmPopupLabel.innerText = `MISSION ACCOMPLIE ! (${formatTimeAbsolute(timer.duration)})`;
+                        alarmPopup.classList.remove('hidden');
+                        isAlarmActive = true;
+                    }
+                    
+                    deleteDynamicTimer(id); // Supprime l'alarme après déclenchement
+                    return;
+                }
+                
+                if (timer.displayElement) {
+                    const newTime = formatTimeAbsolute(timer.remaining);
+                    if (timer.displayElement.innerText !== newTime) {
+                        timer.displayElement.innerText = newTime;
+                    }
+                }
+            }, 100); 
+        }
+
+        function pauseDynamicTimer(id) {
+            const timer = dynamicTimers.find(t => t.id === id);
+            if (timer && timer.running) {
+                clearInterval(timer.interval);
+                timer.running = false;
+                timer.remaining = timer.targetTime - Date.now(); 
+                renderDynamicTimers();
+            }
+        }
+        
+        function toggleDynamicTimer(id) {
+             const timer = dynamicTimers.find(t => t.id === id);
+             if (timer.running) {
+                 pauseDynamicTimer(id);
+             } else {
+                 startDynamicTimer(id);
+             }
+        }
+        
+        function deleteDynamicTimer(id) {
+            const timer = dynamicTimers.find(t => t.id === id);
+            if (timer) clearInterval(timer.interval);
+            dynamicTimers = dynamicTimers.filter(t => t.id !== id);
+            renderDynamicTimers();
+        }
+
+        // =======================
+        // 4. CHRONOMÈTRE TACTIQUE
+        // =======================
+
+        const stopwatchDisplay = document.getElementById('stopwatchDisplay');
+        const stopwatchStartBtn = document.getElementById('stopwatchStartBtn');
+        const stopwatchPauseBtn = document.getElementById('stopwatchPauseBtn');
+        const stopwatchLapBtn = document.getElementById('stopwatchLapBtn');
+        const stopwatchResetBtn = document.getElementById('stopwatchResetBtn');
+        const lapList = document.getElementById('lapList');
+
+        let stopwatchInterval;
+        let startTime = 0;
+        let elapsedTime = 0;
+        let lapCounter = 0;
+        let lastLapTime = 0;
+
+        function runStopwatch() {
+            startTime = Date.now(); 
+
+            stopwatchInterval = setInterval(() => {
+                const currentElapsed = Date.now() - startTime + elapsedTime;
+                stopwatchDisplay.innerText = formatTime(currentElapsed);
+            }, 10); 
+        }
+
+        function startStopwatch() {
+            runStopwatch();
+
+            stopwatchStartBtn.classList.add('hidden');
+            stopwatchPauseBtn.classList.remove('hidden');
+            stopwatchLapBtn.classList.remove('hidden');
+            stopwatchResetBtn.classList.remove('hidden');
+        }
+
+        function pauseStopwatch() {
+            clearInterval(stopwatchInterval);
+            elapsedTime = Date.now() - startTime + elapsedTime; 
+            
+            stopwatchStartBtn.classList.remove('hidden');
+            stopwatchPauseBtn.classList.add('hidden');
+        }
+
+        function resetStopwatch() {
+            clearInterval(stopwatchInterval);
+            elapsedTime = 0;
+            startTime = 0;
+            lapCounter = 0;
+            lastLapTime = 0;
+            stopwatchDisplay.innerText = '00:00.00';
+            lapList.innerHTML = '';
+
+            stopwatchStartBtn.classList.remove('hidden');
+            stopwatchPauseBtn.classList.add('hidden');
+            stopwatchLapBtn.classList.add('hidden');
+            stopwatchResetBtn.classList.add('hidden');
+        }
+
+        function lapStopwatch() {
+            lapCounter++;
+            const currentTotalTime = Date.now() - startTime + elapsedTime; 
+            const lapTime = currentTotalTime - lastLapTime;
+            lastLapTime = currentTotalTime;
+            
+            const lapTimeString = formatTime(lapTime).replace(/\.\d\d$/, '');
+            const totalTimeString = formatTime(currentTotalTime).replace(/\.\d\d$/, '');
+            
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span>TOUR ${String(lapCounter).padStart(3, '0')}</span>
+                <span style="color: var(--color-success);">${lapTimeString}</span>
+                <span style="color: var(--color-primary);">TOTAL: ${totalTimeString}</span>
+            `;
+            lapList.prepend(li); 
+        }
+
+    </script>
+</body>
+</html>
