@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHRONOS-X: Horloge Cosmique et Multimodale (FINAL)</title>
+    <title>CHRONOS-X: Horloge Cosmique et Multimodale (V4.0 - FINAL)</title>
     
     <style>
         /* BASE & VARIABLES */
@@ -314,6 +314,7 @@
         const alarmPopupTime = document.getElementById('alarmPopupTime');
         const alarmPopupLabel = document.getElementById('alarmPopupLabel');
         let isAlarmActive = false; 
+        let stopAttemptTimeout = null; // Pour le mécanisme de contournement (workaround)
 
         /** Formatte les millisecondes en HH:MM:SS.MS ou MM:SS.MS */
         function formatTime(ms, full = false) {
@@ -347,24 +348,35 @@
             return `${format(hours)}:${format(minutes)}:${format(seconds)}`;
         }
         
-        /** * Arrête l'alarme et masque la modale (Version ultra-robuste V3.0) 
-         * Fonction essentielle pour que le bouton ACKNOWLEDGE fonctionne.
-         */
+        /** Arrête l'alarme et masque la modale (V4.0 - Mécanisme de contournement inclus) */
         function stopAlarmSound() {
-            if (isAlarmActive) {
-                // 1. Désactiver la boucle pour garantir l'arrêt immédiat
-                alarmSound.loop = false; 
-                
-                // 2. Mettre en pause et rembobiner
-                alarmSound.pause();
-                alarmSound.currentTime = 0;
-            }
+            if (!isAlarmActive) return;
+
+            // 1. Annuler toute tentative d'arrêt précédente en attente
+            clearTimeout(stopAttemptTimeout);
+
+            // Fonction interne d'arrêt (réutilisée pour le contournement)
+            const forceStop = () => {
+                if (!alarmSound.paused) {
+                    alarmSound.loop = false; // Désactiver la boucle
+                    alarmSound.pause();
+                    alarmSound.currentTime = 0;
+                    console.log('Alarme arrêtée par forceStop.');
+                }
+            };
             
-            // 3. Masquer l'interface
+            // Tentative d'arrêt immédiate
+            forceStop();
+            
+            // Mécanisme de contournement: Tenter à nouveau l'arrêt après 100ms
+            // pour contourner les problèmes de thread audio/boucle du navigateur mobile.
+            stopAttemptTimeout = setTimeout(forceStop, 100);
+
+            // Masquer l'interface et réinitialiser l'état
             alarmPopup.classList.add('hidden');
             isAlarmActive = false;
             
-            // 4. Réactiver la boucle pour le prochain déclenchement
+            // Réactiver la boucle pour le prochain déclenchement
             alarmSound.loop = true; 
         }
 
@@ -541,7 +553,11 @@
             
             if (triggeredAlarm) {
                 // Déclenchement
-                alarmSound.play();
+                alarmSound.play().catch(error => {
+                    console.error("Erreur de lecture audio (probablement bloqué par le navigateur) :", error);
+                    // Si la lecture échoue (bloquée par politique d'autoplay), l'alarme n'est pas considérée comme "Active"
+                    // pour permettre à l'utilisateur d'interagir d'abord. MAIS nous affichons quand même l'alerte visuelle.
+                });
                 alarmPopupTime.innerText = triggeredAlarm.time;
                 alarmPopupLabel.innerText = `${triggeredAlarm.label} - PROTOCOLE ACTIVÉ !`;
                 alarmPopup.classList.remove('hidden');
@@ -648,7 +664,9 @@
                     
                     // Alarme du minuteur
                     if (!isAlarmActive) {
-                        alarmSound.play();
+                        alarmSound.play().catch(error => {
+                            console.error("Erreur de lecture audio (probablement bloqué par le navigateur) :", error);
+                        });
                         alarmPopupTime.innerText = timer.label;
                         alarmPopupLabel.innerText = `MISSION ACCOMPLIE ! (${formatTimeAbsolute(timer.duration)})`;
                         alarmPopup.classList.remove('hidden');
