@@ -23,7 +23,6 @@
             --border-dark: #3a3a4c;
             --card-bg: rgba(25, 25, 40, 0.7);
             --gradient-1: linear-gradient(45deg, var(--primary-glow), var(--secondary-glow));
-            --gradient-2: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow));
             --card-hover-bg: rgba(35, 35, 60, 0.9);
         }
 
@@ -326,7 +325,6 @@
             header h1 {
                 font-size: 2.5em;
             }
-            /* Adaptation de l'heure sur mobile */
             #system-time {
                 font-size: 1.8em; 
                 letter-spacing: 3px;
@@ -338,7 +336,7 @@
             }
 
             #project-links {
-                grid-template-columns: 1fr; /* Une seule colonne sur petits écrans */
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -398,8 +396,11 @@
     <script>
         // Enregistrement du Service Worker (pour PWA)
         if ('serviceWorker' in navigator) {
+            // Le Service Worker doit être enregistré à la racine du sous-domaine
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
+                // IMPORTANT : Pour GitHub Pages dans un sous-dossier, l'enregistrement doit cibler le chemin complet du Service Worker.
+                // Ici, il doit être dans /fils/sw.js
+                navigator.serviceWorker.register('/fils/sw.js') 
                     .then(reg => {
                         console.log('Service Worker enregistré. Portée:', reg.scope);
                     })
