@@ -2,7 +2,7 @@
     "name": "Nexus Projets Hub",
     "short_name": "Nexus Hub",
     "description": "Votre portail vers l'avenir numérique (Projets Hub).",
-    "start_url": "/fils",
+    "start_url": "/fils/index.html",
     "display": "standalone",
     "background_color": "#1a1a2e",
     "theme_color": "#00f0ff",
