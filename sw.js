@@ -1,7 +1,7 @@
 const CACHE_NAME = 'nexus-cache-v1';
 // IMPORTANT: Ajoutez ici tous les noms de fichiers exacts de votre dossier (y compris les icônes)
 const urlsToCache = [
-    '/index.html',
+    '/fils',
     '/manifest.json'
     // Ajoutez vos icônes ici:
     // '/icon-192.png',
