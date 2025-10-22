@@ -3,159 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Archive | Terminal</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> 
-    
+    <title>Archive | CV et Missions</title>
     <style>
-        /* Styles de base réutilisés du site principal */
-        :root {
-            --bg-dark: #1a1a2e;
-            --primary-glow: #00f0ff;
-            --secondary-glow: #e900ff;
-            --text-light: #e0e0e0;
-            --text-muted: #888;
-            --card-bg: rgba(25, 25, 40, 0.7);
-            --gradient-1: linear-gradient(45deg, var(--primary-glow), var(--secondary-glow));
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Share Tech Mono', monospace;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 50px 20px;
-        }
-
-        .archive-container {
-            width: 100%;
-            max-width: 900px;
-            margin-top: 50px;
-        }
-
-        .archive-header {
-            text-align: center;
-            margin-bottom: 40px;
-            border-bottom: 2px solid var(--primary-glow);
-            padding-bottom: 20px;
-        }
-
-        .archive-header h1 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--primary-glow);
-            font-size: 2.5em;
-            text-shadow: 0 0 10px var(--primary-glow);
-        }
-
-        .archive-header p {
-            color: var(--text-muted);
-            margin-top: 10px;
-        }
-
-        .nav-links {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .nav-card {
-            display: block;
-            padding: 30px;
-            background-color: var(--card-bg);
-            border: 1px solid var(--secondary-glow);
-            border-left: 5px solid var(--secondary-glow);
-            border-radius: 5px;
-            text-decoration: none;
-            color: var(--text-light);
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-card:hover {
-            background-color: rgba(35, 35, 60, 0.9);
-            transform: translateX(10px);
-            border-color: var(--primary-glow);
-            border-left-color: var(--primary-glow);
-            box-shadow: 0 0 20px rgba(233, 0, 255, 0.5);
-        }
-        
-        .nav-card:before {
-            content: '>';
-            position: absolute;
-            left: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary-glow);
-            font-size: 1.5em;
-            opacity: 0.8;
-        }
-
-        .nav-card h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5em;
-            margin-left: 20px;
-            color: var(--primary-glow);
-        }
-
-        .nav-card p {
-            margin-top: 5px;
-            margin-left: 20px;
-            color: var(--text-muted);
-        }
-
-        .back-link {
-            margin-top: 40px;
-            color: var(--secondary-glow);
-            text-decoration: none;
-            font-size: 1.1em;
-            transition: color 0.3s;
-        }
-
-        .back-link:hover {
-            color: var(--primary-glow);
-        }
-
-        @media (max-width: 600px) {
-            .archive-header h1 {
-                font-size: 1.8em;
-            }
-            .nav-card {
-                padding: 20px;
-            }
-            .nav-card h2 {
-                font-size: 1.2em;
-            }
-        }
+        body { background-color: #1a1a2e; color: #e0e0e0; font-family: 'Share Tech Mono', monospace; padding: 50px; }
+        h1 { color: #00f0ff; margin-bottom: 20px; }
+        h2 { color: #e900ff; margin-top: 20px; }
+        p { margin-bottom: 5px; }
+        a { color: #e900ff; text-decoration: none; }
+        a:hover { color: #00f0ff; }
+        hr { border: 0; border-top: 1px dashed #3a3a4c; margin: 30px 0; }
     </style>
 </head>
 <body>
-    <div class="archive-container">
-        <div class="archive-header">
-            <h1>:: TERMINAL D'ARCHIVE ::</h1>
-            <p>Veuillez sélectionner un répertoire d'accès.</p>
-        </div>
+    <h1>:: JOURNAL DE MISSIONS ET ACCRÉDITATIONS ::</h1>
+    <p>Historique des expériences professionnelles et des certifications.</p>
 
-        <nav class="nav-links">
-            <a href="projets.html" class="nav-card">
-                <h2>RÉPERTOIRE 01 : PROJETS</h2>
-                <p>Analyse des modules et des réalisations passées (Code Source, Études de Cas).</p>
-            </a>
-            <a href="archive/competences.html" class="nav-card">
-                <h2>RÉPERTOIRE 02 : COMPÉTENCES</h2>
-                <p>Matrice des langages et des protocoles maîtrisés (Stacks Techniques, Frameworks).</p>
-            </a>
-            <a href="cv.html" class="nav-card">
-                <h2>RÉPERTOIRE 03 : MISSIONS ET CV</h2>
-                <p>Journal de bord des expériences professionnelles et téléchargement du CV (Rapports, Historique).</p>
-            </a>
-        </nav>
-        <a href="index.html" class="back-link">← Retour au Nexus Principal</a>
-    </div>
+    <h2>MISSION 01 : [Nom de l'Entreprise]</h2>
+    <p>[Titre du Poste] - [Date Début] à [Date Fin]</p>
+    <p>Rôle : Développement et maintenance du système X. Technologie : Y.</p>
+    
+    <h2>ACCRÉDITATION : [Nom de la Certification]</h2>
+    <p>Délivrée par : [Nom de l'Organisme] - <a href="Lien_Certificat">Voir l'Accréditation</a></p>
+    
+    <hr>
+    <p>Fichier de Transfert CV : <a href="votre_cv.pdf" target="_blank">Télécharger le CV (PDF)</a> (Ajoutez votre PDF ici)</p>
+    <a href="archive.html" style="display: block; margin-top: 20px;">← Retour à l'Archive</a>
 </body>
 </html>
