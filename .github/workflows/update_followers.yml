@@ -28,7 +28,7 @@ jobs:
 
     - name: Execute Python script
       # Exécute le script fetch_followers.py qui se trouve dans votre dossier 'fils'
-      run: python ./fils/fetch_followers.py 
+      run: python /fetch_followers.py 
 
     - name: Commit and Push new data
       # Cet outil va automatiquement committer le fichier JSON mis à jour sur GitHub
