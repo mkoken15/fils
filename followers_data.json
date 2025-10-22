@@ -1,5 +1,5 @@
 {
+    "timestamp": 0,
     "followers": 0,
-    "status": "initial",
-    "timestamp": 0
+    "status": "error_retaining_old_data (Instaloader)"
 }
