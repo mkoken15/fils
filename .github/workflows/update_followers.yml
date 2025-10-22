@@ -28,7 +28,7 @@ jobs:
     - name: Execute Python script
       # CORRECTION DU CHEMIN: Référence directe au script dans le sous-dossier 'fils/' 
       # C'est la syntaxe la plus courante pour accéder aux sous-dossiers.
-      run: python fils/fetch_followers.py 
+      run: python fetch_followers.py 
 
     - name: Commit and Push new data
       # Cet outil va committer le fichier JSON mis à jour sur GitHub
