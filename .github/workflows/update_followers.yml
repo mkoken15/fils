@@ -27,8 +27,10 @@ jobs:
         pip install requests beautifulsoup4
 
     - name: Execute Python script
-      # Exécute le script fetch_followers.py qui se trouve dans votre dossier 'fils'
-      run: python /fetch_followers.py 
+      # NOUVELLE MÉTHODE : Se déplacer dans le dossier puis exécuter le script
+      run: |
+        cd fils/
+        python fetch_followers.py 
 
     - name: Commit and Push new data
       # Cet outil va automatiquement committer le fichier JSON mis à jour sur GitHub
