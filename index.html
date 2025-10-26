@@ -1,253 +1,315 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Numérique</title>
-    
-    <link rel="manifest" href="manifest.json">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="apple-touch-icon" href="icon-192.jpg"> 
-    
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-   <link rel="icon" type="image/png" href="favicon.png"> 
-    
-    <link rel="shortcut icon" type="image/png" href="favicon.png">
-    
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> 
-    
-    <style>
-        /* Variables globales */
-        :root {
-            --bg-dark: #1a1a2e;
-            --primary-glow: #00f0ff;
-            --secondary-glow: #e900ff;
-            --text-light: #e0e0e0;
-            --text-muted: #888;
-            --border-dark: #3a3a4c;
-            --card-bg: rgba(25, 25, 40, 0.7);
-            --gradient-1: linear-gradient(45deg, var(--primary-glow), var(--secondary-glow));
-            --card-hover-bg: rgba(35, 35, 60, 0.9);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS PROJETS</title>     
+        <link rel="manifest" href="./manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" href="./icon-192.jpg"> 
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+        <link rel="icon" type="image/png" href="./favicon.png"> 
+    <link rel="shortcut icon" type="image/png" href="./favicon.png">
+    
+        <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> 
+    
+    <style>
+        /* Variables globales */
+        :root {
+            --bg-dark: #1a1a2e;
+            --primary-glow: #00f0ff;
+            --secondary-glow: #e900ff;
+            --text-light: #e0e0e0;
+            --text-muted: #888;
+            --border-dark: #3a3a4c;
+            --card-bg: rgba(25, 25, 40, 0.7);
+            --gradient-1: linear-gradient(45deg, var(--primary-glow), var(--secondary-glow));
+            --card-hover-bg: rgba(35, 35, 60, 0.9);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden; 
+            position: relative; 
+        }
+
+        /* Animation de fond */
+        .background-animation {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at top left, rgba(0, 240, 255, 0.1), transparent 30%),
+                        radial-gradient(circle at bottom right, rgba(233, 0, 255, 0.1), transparent 30%);
+            opacity: 0.3; animation: bg-fade-in 2s ease-out forwards; z-index: -1; 
+        }
+        @keyframes bg-fade-in { from { opacity: 0; transform: scale(1.1); } to { opacity: 0.3; transform: scale(1); } }
+
+        /* Header et Titres */
+        header { text-align: center; padding: 50px 0 30px; position: relative; z-index: 1; }
+        #system-time { font-family: 'Orbitron', sans-serif; font-size: 2.5em; color: var(--primary-glow); margin-bottom: 20px; text-shadow: 0 0 15px rgba(0, 240, 255, 1), 0 0 25px rgba(0, 240, 255, 0.5); letter-spacing: 5px; }
+        header h1 { font-family: 'Orbitron', sans-serif; font-size: 3.5em; margin-bottom: 10px; letter-spacing: 5px; text-shadow: 0 0 15px var(--primary-glow), 0 0 25px var(--secondary-glow); animation: neon-pulse 1.5s infinite alternate ease-in-out; }
+        .gradient-text { background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; }
+        .subtitle { font-size: 1.2em; color: var(--text-muted); text-shadow: 0 0 8px rgba(0, 240, 255, 0.3); }
+        @keyframes neon-pulse { from { text-shadow: 0 0 10px var(--primary-glow), 0 0 20px var(--secondary-glow); } to { text-shadow: 0 0 15px var(--primary-glow), 0 0 30px var(--secondary-glow), 0 0 40px rgba(233, 0, 255, 0.4); } }
+
+        /* --- Widget Social / ID Utilisateur --- */
+        .social-id-widget {
+            display: flex; align-items: center; justify-content: center; margin-top: 25px;
+            padding: 10px 20px; background-color: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-dark);
+            border-radius: 10px; max-width: 400px; margin-left: auto; margin-right: auto;
+            box-shadow: 0 0 15px rgba(233, 0, 255, 0.2);
+        }
+        .profile-pic {
+            width: 60px; height: 60px; border-radius: 50%; object-fit: cover;
+            border: 3px solid var(--secondary-glow); box-shadow: 0 0 10px var(--secondary-glow);
+            margin-right: 15px;
+        }
+        .social-details { text-align: left; }
+        .social-details p { font-family: 'Orbitron', sans-serif; font-size: 1.1em; margin: 0; }
+        .social-details .username { color: var(--text-light); }
+        .social-details .followers {
+            font-size: 0.9em; color: var(--primary-glow); text-shadow: 0 0 5px var(--primary-glow); letter-spacing: 1px;
+        }
+        /* ---------------------------------------------------------------- */
+
+        /* --- Widget BOUTIQUE SPREADSHOP (NOUVEAU CSS) --- */
+        #shop-container {
+            margin-top: 30px;
+            padding: 20px 0;
+            border-top: 1px dashed rgba(0, 240, 255, 0.1);
+            border-bottom: 1px dashed rgba(233, 0, 255, 0.1);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Share Tech Mono', monospace;
-            background-color: var(--bg-dark);
+        .futuristic-shop-button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2em;
+            text-decoration: none;
             color: var(--text-light);
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden; 
-            position: relative; 
+            background-color: var(--card-bg);
+            border: 2px solid var(--secondary-glow);
+            border-radius: 8px;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 0 15px rgba(233, 0, 255, 0.4);
+            letter-spacing: 2px;
         }
 
-        /* Animation de fond */
-        .background-animation {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at top left, rgba(0, 240, 255, 0.1), transparent 30%),
-                        radial-gradient(circle at bottom right, rgba(233, 0, 255, 0.1), transparent 30%);
-            opacity: 0.3; animation: bg-fade-in 2s ease-out forwards; z-index: -1; 
+        .futuristic-shop-button:hover {
+            color: var(--bg-dark);
+            background: var(--gradient-1); /* Dégradé de bleu et violet */
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 25px var(--primary-glow), 0 0 40px var(--secondary-glow);
+            transform: scale(1.05);
         }
-        @keyframes bg-fade-in { from { opacity: 0; transform: scale(1.1); } to { opacity: 0.3; transform: scale(1); } }
 
-        /* Header et Titres */
-        header { text-align: center; padding: 50px 0 30px; position: relative; z-index: 1; }
-        #system-time { font-family: 'Orbitron', sans-serif; font-size: 2.5em; color: var(--primary-glow); margin-bottom: 20px; text-shadow: 0 0 15px rgba(0, 240, 255, 1), 0 0 25px rgba(0, 240, 255, 0.5); letter-spacing: 5px; }
-        header h1 { font-family: 'Orbitron', sans-serif; font-size: 3.5em; margin-bottom: 10px; letter-spacing: 5px; text-shadow: 0 0 15px var(--primary-glow), 0 0 25px var(--secondary-glow); animation: neon-pulse 1.5s infinite alternate ease-in-out; }
-        .gradient-text { background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; }
-        .subtitle { font-size: 1.2em; color: var(--text-muted); text-shadow: 0 0 8px rgba(0, 240, 255, 0.3); }
-        @keyframes neon-pulse { from { text-shadow: 0 0 10px var(--primary-glow), 0 0 20px var(--secondary-glow); } to { text-shadow: 0 0 15px var(--primary-glow), 0 0 30px var(--secondary-glow), 0 0 40px rgba(233, 0, 255, 0.4); } }
-
-        /* --- Widget Social / ID Utilisateur (CODE MANQUANT AJOUTÉ) --- */
-        .social-id-widget {
-            display: flex; align-items: center; justify-content: center; margin-top: 25px;
-            padding: 10px 20px; background-color: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-dark);
-            border-radius: 10px; max-width: 400px; margin-left: auto; margin-right: auto;
-            box-shadow: 0 0 15px rgba(233, 0, 255, 0.2);
+        .futuristic-shop-button i {
+            margin-right: 10px;
         }
-        .profile-pic {
-            width: 60px; height: 60px; border-radius: 50%; object-fit: cover;
-            border: 3px solid var(--secondary-glow); box-shadow: 0 0 10px var(--secondary-glow);
-            margin-right: 15px;
-        }
-        .social-details { text-align: left; }
-        .social-details p { font-family: 'Orbitron', sans-serif; font-size: 1.1em; margin: 0; }
-        .social-details .username { color: var(--text-light); }
-        .social-details .followers {
-            font-size: 0.9em; color: var(--primary-glow); text-shadow: 0 0 5px var(--primary-glow); letter-spacing: 1px;
+        
+        /* Masquer la div de Spreadshop si on utilise juste un bouton de lien */
+        #myShop {
+            display: none; 
         }
         /* ---------------------------------------------------------------- */
 
-        /* Main Content et Recherche */
-        main { flex: 1; max-width: 1200px; width: 90%; margin: 40px auto; position: relative; z-index: 1; }
-        .search-container { margin-bottom: 50px; position: relative; display: flex; justify-content: center; }
-        .futuristic-input { width: 100%; max-width: 600px; padding: 18px 25px; font-size: 1.1em; color: var(--text-light); background-color: var(--card-bg); border: 1px solid var(--border-dark); border-radius: 50px; outline: none; transition: all 0.4s ease; box-shadow: 0 0 10px rgba(0, 240, 255, 0.1), inset 0 0 5px rgba(0, 240, 255, 0.05); }
-        .futuristic-input::placeholder { color: var(--text-muted); opacity: 0.7; }
-        .futuristic-input:focus { border-color: var(--primary-glow); box-shadow: 0 0 20px var(--primary-glow), inset 0 0 10px rgba(0, 240, 255, 0.2); }
-        .input-glow { /* Style de l'ombre autour du champ de recherche */ }
-        .futuristic-input:focus + .input-glow { opacity: 0.4; animation: input-pulse 2s infinite alternate ease-in-out; }
-        @keyframes input-pulse { from { transform: translate(-50%, -50%) scale(1); opacity: 0.3; } to { transform: translate(-50%, -50%) scale(1.03); opacity: 0.5; } }
+        /* Main Content et Recherche */
+        main { flex: 1; max-width: 1200px; width: 90%; margin: 40px auto; position: relative; z-index: 1; }
+        .search-container { margin-bottom: 50px; position: relative; display: flex; justify-content: center; }
+        .futuristic-input { width: 100%; max-width: 600px; padding: 18px 25px; font-size: 1.1em; color: var(--text-light); background-color: var(--card-bg); border: 1px solid var(--border-dark); border-radius: 50px; outline: none; transition: all 0.4s ease; box-shadow: 0 0 10px rgba(0, 240, 255, 0.1), inset 0 0 5px rgba(0, 240, 255, 0.05); }
+        .futuristic-input::placeholder { color: var(--text-muted); opacity: 0.7; }
+        .futuristic-input:focus { border-color: var(--primary-glow); box-shadow: 0 0 20px var(--primary-glow), inset 0 0 10px rgba(0, 240, 255, 0.2); }
+        .input-glow { /* Style de l'ombre autour du champ de recherche */ }
+        .futuristic-input:focus + .input-glow { opacity: 0.4; animation: input-pulse 2s infinite alternate ease-in-out; }
+        @keyframes input-pulse { from { transform: translate(-50%, -50%) scale(1); opacity: 0.3; } to { transform: translate(-50%, -50%) scale(1.03); opacity: 0.5; } }
 
-        /* Cartes de Projets */
-        #project-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .project-card { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px 20px; background-color: var(--card-bg); border: 1px solid var(--border-dark); border-radius: 15px; text-decoration: none; color: var(--text-light); transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); overflow: hidden; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), inset 0 0 5px rgba(255, 255, 255, 0.05); }
-        .project-card:hover { background-color: var(--card-hover-bg); transform: translateY(-8px) scale(1.02); border-color: var(--primary-glow); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 25px rgba(0, 240, 255, 0.4); }
-        .project-card i { font-size: 3em; margin-bottom: 15px; position: relative; z-index: 2; color: var(--primary-glow); }
-        .project-card:hover i { color: var(--secondary-glow); }
-        .icon-glow { text-shadow: 0 0 15px var(--primary-glow), 0 0 25px rgba(0, 240, 255, 0.5); animation: icon-float 3s infinite alternate ease-in-out; }
-        .card-title { font-family: 'Orbitron', sans-serif; font-size: 1.5em; margin-bottom: 5px; font-weight: 700; position: relative; z-index: 2; }
-        .card-subtitle { font-size: 0.9em; color: var(--text-muted); position: relative; z-index: 2; }
-        .project-card.hidden { display: none; }
+        /* Cartes de Projets */
+        #project-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .project-card { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px 20px; background-color: var(--card-bg); border: 1px solid var(--border-dark); border-radius: 15px; text-decoration: none; color: var(--text-light); transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); overflow: hidden; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), inset 0 0 5px rgba(255, 255, 255, 0.05); }
+        .project-card:hover { background-color: var(--card-hover-bg); transform: translateY(-8px) scale(1.02); border-color: var(--primary-glow); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 25px rgba(0, 240, 255, 0.4); }
+        .project-card i { font-size: 3em; margin-bottom: 15px; position: relative; z-index: 2; color: var(--primary-glow); }
+        .project-card:hover i { color: var(--secondary-glow); }
+        .icon-glow { text-shadow: 0 0 15px var(--primary-glow), 0 0 25px rgba(0, 240, 255, 0.5); animation: icon-float 3s infinite alternate ease-in-out; }
+        .card-title { font-family: 'Orbitron', sans-serif; font-size: 1.5em; margin-bottom: 5px; font-weight: 700; position: relative; z-index: 2; }
+        .card-subtitle { font-size: 0.9em; color: var(--text-muted); position: relative; z-index: 2; }
+        .project-card.hidden { display: none; }
 
-        /* Footer */
-        footer { text-align: center; padding: 20px; background-color: var(--bg-dark); border-top: 1px solid var(--border-dark); margin-top: 50px; color: var(--text-muted); font-size: 0.9em; position: relative; z-index: 1; }
+        /* Footer */
+        footer { text-align: center; padding: 20px; background-color: var(--bg-dark); border-top: 1px solid var(--border-dark); margin-top: 50px; color: var(--text-muted); font-size: 0.9em; position: relative; z-index: 1; }
 
-        /* Media Queries pour la réactivité */
-        @media (max-width: 768px) {
-            header h1 { font-size: 2.5em; }
-            #system-time { font-size: 1.8em; letter-spacing: 3px; }
-            .futuristic-input { font-size: 1em; padding: 15px 20px; }
-            #project-links { grid-template-columns: 1fr; }
-        }
-    </style>
+        /* Media Queries pour la réactivité */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.5em; }
+            #system-time { font-size: 1.8em; letter-spacing: 3px; }
+            .futuristic-input { font-size: 1em; padding: 15px 20px; }
+            #project-links { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
-    
-    <div class="background-animation"></div> 
-    
-    <header>
-        <p id="system-time">00:00:00</p>
-        
-        <h1><span class="gradient-text">NEXUS</span> PROJETS</h1>
-        <p class="subtitle">Votre portail vers l'avenir numérique.</p>
+    
+    <div class="background-animation"></div> 
+    
+    <header>
+        <p id="system-time">00:00:00</p>
+        
+        <h1><span class="gradient-text">NEXUS</span> PROJETS</h1>
+        <p class="subtitle">Votre portail vers l'avenir numérique.</p>
 
-        <div class="social-id-widget">
-            <img src="ma_photo_insta.jpg" alt="Photo de Profil Instagram" class="profile-pic">
-            <div class="social-details">
-                <p class="username">@merickkn</p>
-                <p class="followers"><i class="fas fa-users"></i> <span id="follower-count">...</span> abonnés (Flux Réel)</p>
-            </div>
-        </div>
-    </header>
+        <div class="social-id-widget">
+            <img src="./ma_photo_insta.jpg" alt="Photo de Profil Instagram" class="profile-pic">
+            <div class="social-details">
+                <p class="username">@merickkn</p>
+                <p class="followers"><i class="fas fa-users"></i> <span id="follower-count">...</span> abonnés (Flux Réel)</p>
+            </div>
+        </div>
 
-    <main>
-        <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Accéder à un module..." class="futuristic-input">
-            <div class="input-glow"></div>
-        </div>
-
-        <section id="project-links">
-            <a href="https://mkoken15.github.io/93003/" class="project-card" data-title="93003">
-                <i class="fas fa-microchip icon-glow"></i>
-                <span class="card-title">93003 </span>
-                <span class="card-subtitle">Ticket</span>
+        <div id="shop-container">
+            <a href="https://LCSL.myspreadshop.fr" target="_blank" class="futuristic-shop-button">
+                <i class="fas fa-shopping-bag"></i> ACCÉDER À LA BOUTIQUE LCSL
             </a>
             
-            <a href="https://mkoken15.github.io/quantum-converter/" class="project-card" data-title="Quantum Converter">
-                <i class="fas fa-calculator icon-glow"></i>
-                <span class="card-title">Quantum Converter</span>
-                <span class="card-subtitle">Opérations Avancées</span>
-            </a>
-            
-            <a href="archive.html" class="project-card" data-title="Archive Personnelle">
-                <i class="fas fa-code icon-glow"></i>
-                <span class="card-title">Archive Personnelle</span>
-                <span class="card-subtitle">Terminal de Consultation</span>
-            </a>
-            <a href="https://votre-blog.com" class="project-card" data-title="Log R&D">
-                <i class="fas fa-pen-nib icon-glow"></i>
-                <span class="card-title">Log R&D</span>
-                <span class="card-subtitle">Pensées et Explorations</span>
-            </a>
-        </section>
-    </main>
+            <div id="myShop"></div>
+        </div>
+    </header>
 
-    <footer>
-        <p>Propulsé par <span class="gradient-text">IA-Hub</span> &copy; 2077</p>
-    </footer>
+    <main>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Accéder à un module..." class="futuristic-input">
+            <div class="input-glow"></div>
+        </div>
+
+        <section id="project-links">
+            <a href="https://mkoken15.github.io/93003/" class="project-card" data-title="93003">
+                <i class="fas fa-microchip icon-glow"></i>
+                <span class="card-title">93003 </span>
+                <span class="card-subtitle">Ticket</span>
+            </a>
+            
+            <a href="https://mkoken15.github.io/quantum-converter/" class="project-card" data-title="Quantum Converter">
+                <i class="fas fa-calculator icon-glow"></i>
+                <span class="card-title">Quantum Converter</span>
+                <span class="card-subtitle">Opérations Avancées</span>
+            </a>
+            
+            <a href="archive.html" class="project-card" data-title="Archive Personnelle">
+                <i class="fas fa-code icon-glow"></i>
+                <span class="card-title">Archive Personnelle</span>
+                <span class="card-subtitle">Terminal de Consultation</span>
+            </a>
+            <a href="https://votre-blog.com" class="project-card" data-title="Log R&D">
+                <i class="fas fa-pen-nib icon-glow"></i>
+                <span class="card-title">Log R&D</span>
+                <span class="card-subtitle">Pensées et Explorations</span>
+            </a>
+        </section>
+    </main>
+
+    <footer>
+        <p>Propulsé par <span class="gradient-text">IA-Hub</span> &copy; 2077</p>
+    </footer>
+
+    <script>
+        // Enregistrement du Service Worker (PWA)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // Chemin adapté pour votre sous-dossier /fils/
+                navigator.serviceWorker.register('/fils/sw.js') 
+                    .then(reg => { console.log('Service Worker enregistré. Portée:', reg.scope); })
+                    .catch(err => { console.error('Échec de l\'enregistrement du Service Worker:', err); });
+            });
+        }
+    
+        // Fonction pour formater un nombre (H, M ou S) avec deux chiffres
+        function pad(number) { return number < 10 ? '0' + number : number; }
+
+        // Fonction pour mettre à jour l'heure
+        function updateTime() {
+            const now = new Date();
+            const hours = pad(now.getHours());
+            const minutes = pad(now.getMinutes());
+            const seconds = pad(now.getSeconds());
+            document.getElementById('system-time').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        
+        // Fonction utilitaire pour formater le nombre (ex: 12500 -> 12.5K)
+        function formatFollowers(num) {
+            if (num >= 1000) {
+                return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+            }
+            return num.toLocaleString(); 
+        }
+
+        // Fonction pour charger les données des abonnés depuis le fichier JSON statique
+        async function loadFollowers() {
+            try {
+                // Utilisation de ./ pour le chemin relatif
+                const response = await fetch('./followers_data.json'); 
+                if (!response.ok) {
+                    throw new Error('Échec du chargement des données des abonnés.');
+                }
+                const data = await response.json();
+                
+                const followerCount = data.followers;
+                const formattedCount = formatFollowers(followerCount);
+                
+                document.getElementById('follower-count').textContent = formattedCount;
+                
+            } catch (error) {
+                console.error("Échec de la récupération des abonnés :", error);
+                document.getElementById('follower-count').textContent = 'Erreur';
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // Logique de l'horloge
+            updateTime();
+            setInterval(updateTime, 1000);
+            
+            // Logique du widget d'abonnés
+            loadFollowers(); 
+            // Actualise l'affichage toutes les 30 minutes
+            setInterval(loadFollowers, 30 * 60 * 1000); 
+
+            // Logique de recherche
+            const searchInput = document.getElementById('searchInput');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            searchInput.addEventListener('keyup', (e) => {
+                const searchTerm = e.target.value.toLowerCase(); 
+
+                projectCards.forEach(card => { 
+                    const projectTitle = card.getAttribute('data-title').toLowerCase(); 
+                    
+                    if (projectTitle.includes(searchTerm)) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
 
     <script>
-        // Enregistrement du Service Worker (PWA)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                // Chemin adapté pour votre sous-dossier /fils/
-                navigator.serviceWorker.register('/fils/sw.js') 
-                    .then(reg => { console.log('Service Worker enregistré. Portée:', reg.scope); })
-                    .catch(err => { console.error('Échec de l\'enregistrement du Service Worker:', err); });
-            });
-        }
-    
-        // Fonction pour formater un nombre (H, M ou S) avec deux chiffres
-        function pad(number) { return number < 10 ? '0' + number : number; }
-
-        // Fonction pour mettre à jour l'heure
-        function updateTime() {
-            const now = new Date();
-            const hours = pad(now.getHours());
-            const minutes = pad(now.getMinutes());
-            const seconds = pad(now.getSeconds());
-            document.getElementById('system-time').textContent = `${hours}:${minutes}:${seconds}`;
-        }
-        
-        // Fonction utilitaire pour formater le nombre (ex: 12500 -> 12.5K)
-        function formatFollowers(num) {
-            if (num >= 1000) {
-                return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
-            }
-            return num.toLocaleString(); 
-        }
-
-        // Fonction pour charger les données des abonnés depuis le fichier JSON statique
-        async function loadFollowers() {
-            try {
-                const response = await fetch('./followers_data.json'); 
-                if (!response.ok) {
-                    throw new Error('Échec du chargement des données des abonnés.');
-                }
-                const data = await response.json();
-                
-                const followerCount = data.followers;
-                const formattedCount = formatFollowers(followerCount);
-                
-                document.getElementById('follower-count').textContent = formattedCount;
-                
-            } catch (error) {
-                console.error("Échec de la récupération des abonnés :", error);
-                document.getElementById('follower-count').textContent = 'Erreur';
-            }
-        }
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            // Logique de l'horloge
-            updateTime();
-            setInterval(updateTime, 1000);
-            
-            // Logique du widget d'abonnés
-            loadFollowers(); 
-            // Actualise l'affichage toutes les 30 minutes (le fichier JSON est mis à jour toutes les 6h par l'Action)
-            setInterval(loadFollowers, 30 * 60 * 1000); 
-
-            // Logique de recherche
-            const searchInput = document.getElementById('searchInput');
-            const projectCards = document.querySelectorAll('.project-card');
-
-            searchInput.addEventListener('keyup', (e) => {
-                const searchTerm = e.target.value.toLowerCase(); 
-
-                projectCards.forEach(card => { 
-                    const projectTitle = card.getAttribute('data-title').toLowerCase(); 
-                    
-                    if (projectTitle.includes(searchTerm)) {
-                        card.classList.remove('hidden');
-                    } else {
-                        card.classList.add('hidden');
-                    }
-                });
-            });
-        });
+        var spread_shop_config = {
+            shopName: 'LCSL',
+            locale: 'fr_FR',
+            prefix: 'https://LCSL.myspreadshop.fr',
+            baseId: 'myShop'
+        };
     </script>
+    <script type="text/javascript"
+        src="https://LCSL.myspreadshop.fr/shopfiles/shopclient/shopclient.nocache.js">
+    </script>
+    
 </body>
 </html>
