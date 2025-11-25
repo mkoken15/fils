@@ -37,7 +37,7 @@ body {
 /* Header et Titres */
 header { 
     text-align: center; 
-    padding: 5px 0 5px;
+    
     position: relative; 
     z-index: 1; 
 }
