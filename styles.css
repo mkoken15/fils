@@ -1,0 +1,136 @@
+/* Variables globales */
+:root {
+    --bg-dark: #1a1a2e;
+    --primary-glow: #00f0ff;
+    --secondary-glow: #e900ff;
+    --text-light: #e0e0e0;
+    --text-muted: #888;
+    --border-dark: #3a3a4c;
+    --card-bg: rgba(25, 25, 40, 0.7);
+    --gradient-1: linear-gradient(45deg, var(--primary-glow), var(--secondary-glow));
+    --card-hover-bg: rgba(35, 35, 60, 0.9);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Share Tech Mono', monospace;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden; 
+    position: relative; 
+}
+
+/* Animation de fond */
+.background-animation {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at top left, rgba(0, 240, 255, 0.1), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(233, 0, 255, 0.1), transparent 30%);
+    opacity: 0.3; animation: bg-fade-in 2s ease-out forwards; z-index: -1; 
+}
+@keyframes bg-fade-in { from { opacity: 0; transform: scale(1.1); } to { opacity: 0.3; transform: scale(1); } }
+
+/* Header et Titres */
+header { text-align: center; padding: 50px 0 30px; position: relative; z-index: 1; }
+#system-time { font-family: 'Orbitron', sans-serif; font-size: 2.5em; color: var(--primary-glow); margin-bottom: 20px; text-shadow: 0 0 15px rgba(0, 240, 255, 1), 0 0 25px rgba(0, 240, 255, 0.5); letter-spacing: 5px; }
+header h1 { font-family: 'Orbitron', sans-serif; font-size: 3.5em; margin-bottom: 10px; letter-spacing: 5px; text-shadow: 0 0 15px var(--primary-glow), 0 0 25px var(--secondary-glow); animation: neon-pulse 1.5s infinite alternate ease-in-out; }
+.gradient-text { background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; }
+.subtitle { font-size: 1.2em; color: var(--text-muted); text-shadow: 0 0 8px rgba(0, 240, 255, 0.3); }
+@keyframes neon-pulse { from { text-shadow: 0 0 10px var(--primary-glow), 0 0 20px var(--secondary-glow); } to { text-shadow: 0 0 15px var(--primary-glow), 0 0 30px var(--secondary-glow), 0 0 40px rgba(233, 0, 255, 0.4); } }
+
+/* --- Widget Social / ID Utilisateur --- */
+.social-id-widget {
+    display: flex; align-items: center; justify-content: center; margin-top: 25px;
+    padding: 10px 20px; background-color: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-dark);
+    border-radius: 10px; max-width: 400px; margin-left: auto; margin-right: auto;
+    box-shadow: 0 0 15px rgba(233, 0, 255, 0.2);
+}
+.profile-pic {
+    width: 60px; height: 60px; border-radius: 50%; object-fit: cover;
+    border: 3px solid var(--secondary-glow); box-shadow: 0 0 10px var(--secondary-glow);
+    margin-right: 15px;
+}
+.social-details { text-align: left; }
+.social-details p { font-family: 'Orbitron', sans-serif; font-size: 1.1em; margin: 0; }
+.social-details .username { color: var(--text-light); }
+.social-details .followers {
+    font-size: 0.9em; color: var(--primary-glow); text-shadow: 0 0 5px var(--primary-glow); letter-spacing: 1px;
+}
+/* ---------------------------------------------------------------- */
+
+/* --- Widget BOUTIQUE SPREADSHOP (NOUVEAU CSS) --- */
+#shop-container {
+    margin-top: 30px;
+    padding: 20px 0;
+    border-top: 1px dashed rgba(0, 240, 255, 0.1);
+    border-bottom: 1px dashed rgba(233, 0, 255, 0.1);
+}
+
+.futuristic-shop-button {
+    display: inline-block;
+    padding: 15px 30px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2em;
+    text-decoration: none;
+    color: var(--text-light);
+    background-color: var(--card-bg);
+    border: 2px solid var(--secondary-glow);
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 15px rgba(233, 0, 255, 0.4);
+    letter-spacing: 2px;
+}
+
+.futuristic-shop-button:hover {
+    color: var(--bg-dark);
+    background: var(--gradient-1); /* Dégradé de bleu et violet */
+    border-color: var(--primary-glow);
+    box-shadow: 0 0 25px var(--primary-glow), 0 0 40px var(--secondary-glow);
+    transform: scale(1.05);
+}
+
+.futuristic-shop-button i {
+    margin-right: 10px;
+}
+
+/* Masquer la div de Spreadshop si on utilise juste un bouton de lien */
+#myShop {
+    display: none; 
+}
+/* ---------------------------------------------------------------- */
+
+/* Main Content et Recherche */
+main { flex: 1; max-width: 1200px; width: 90%; margin: 40px auto; position: relative; z-index: 1; }
+.search-container { margin-bottom: 50px; position: relative; display: flex; justify-content: center; }
+.futuristic-input { width: 100%; max-width: 600px; padding: 18px 25px; font-size: 1.1em; color: var(--text-light); background-color: var(--card-bg); border: 1px solid var(--border-dark); border-radius: 50px; outline: none; transition: all 0.4s ease; box-shadow: 0 0 10px rgba(0, 240, 255, 0.1), inset 0 0 5px rgba(0, 240, 255, 0.05); }
+.futuristic-input::placeholder { color: var(--text-muted); opacity: 0.7; }
+.futuristic-input:focus { border-color: var(--primary-glow); box-shadow: 0 0 20px var(--primary-glow), inset 0 0 10px rgba(0, 240, 255, 0.2); }
+.input-glow { /* Style de l'ombre autour du champ de recherche */ }
+.futuristic-input:focus + .input-glow { opacity: 0.4; animation: input-pulse 2s infinite alternate ease-in-out; }
+@keyframes input-pulse { from { transform: translate(-50%, -50%) scale(1); opacity: 0.3; } to { transform: translate(-50%, -50%) scale(1.03); opacity: 0.5; } }
+
+/* Cartes de Projets */
+#project-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+.project-card { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px 20px; background-color: var(--card-bg); border: 1px solid var(--border-dark); border-radius: 15px; text-decoration: none; color: var(--text-light); transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); overflow: hidden; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), inset 0 0 5px rgba(255, 255, 255, 0.05); }
+.project-card:hover { background-color: var(--card-hover-bg); transform: translateY(-8px) scale(1.02); border-color: var(--primary-glow); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 25px rgba(0, 240, 255, 0.4); }
+.project-card i { font-size: 3em; margin-bottom: 15px; position: relative; z-index: 2; color: var(--primary-glow); }
+.project-card:hover i { color: var(--secondary-glow); }
+.icon-glow { text-shadow: 0 0 15px var(--primary-glow), 0 0 25px rgba(0, 240, 255, 0.5); animation: icon-float 3s infinite alternate ease-in-out; }
+.card-title { font-family: 'Orbitron', sans-serif; font-size: 1.5em; margin-bottom: 5px; font-weight: 700; position: relative; z-index: 2; }
+.card-subtitle { font-size: 0.9em; color: var(--text-muted); position: relative; z-index: 2; }
+.project-card.hidden { display: none; }
+
+/* Footer */
+footer { text-align: center; padding: 20px; background-color: var(--bg-dark); border-top: 1px solid var(--border-dark); margin-top: 50px; color: var(--text-muted); font-size: 0.9em; position: relative; z-index: 1; }
+
+/* Media Queries pour la réactivité */
+@media (max-width: 768px) {
+    header h1 { font-size: 2.5em; }
+    #system-time { font-size: 1.8em; letter-spacing: 3px; }
+    .futuristic-input { font-size: 1em; padding: 15px 20px; }
+    #project-links { grid-template-columns: 1fr; }
+}
