@@ -10,8 +10,8 @@ on:
 jobs:
   update-data:
     runs-on: ubuntu-latest
-    
-    # Correction des Permissions : Nécessaire pour que l'Action puisse commiter
+
+    # 1. CORRECTION : AJOUT DES PERMISSIONS D'ÉCRITURE pour le commit
     permissions:
       contents: write 
       
@@ -30,15 +30,17 @@ jobs:
         pip install instaloader
 
     - name: Execute Python script
-      # Transmet les secrets d'authentification
+      # 2. CORRECTION : PLACEMENT ET UTILISATION DU SESSION ID
       env:
         INSTA_USERNAME: ${{ secrets.INSTA_USERNAME }}
-        INSTA_PASSWORD: ${{ secrets.INSTA_PASSWORD }}
+        INSTA_SESSION_ID: ${{ secrets.INSTA_SESSION_ID }} 
+        # Le script Python (fetch_followers.py) doit être configuré pour utiliser INSTA_SESSION_ID
+        # au lieu de INSTA_PASSWORD pour l'authentification.
       run: python fetch_followers.py 
 
     - name: Commit and Push new data
-      # Correction de l'erreur: remplacement de 'files' par 'file_pattern'
+      # Correction du paramètre 'files' par 'file_pattern'
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: 'ACTION: Auto-update Instagram followers count'
-        file_pattern: 'fils/followers_data.json' # Ligne Corrigée
+        file_pattern: 'fils/followers_data.json'
