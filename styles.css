@@ -111,7 +111,7 @@ header h1 { font-family: 'Orbitron', sans-serif; font-size: 3.5em; margin-bottom
 /* Main Content et Recherche */
 main { flex: 1; max-width: 1200px; width: 90%; margin: 40px auto; position: relative; z-index: 1; }
 .search-container { margin-bottom: 50px; position: relative; display: flex; justify-content: center; }
-.futuristic-input { width: 100%; max-width: 600px; padding: 18px 25px; font-size: 1.1em; color: var(--text-light); background-color: var(--card-bg); border: 1px solid var(--border-dark); border-radius: 50px; outline: none; transition: all 0.4s ease; box-shadow: 0 0 10px rgba(0, 240, 255, 0.1), inset 0 0 5px rgba(0, 240, 255, 0.05); }
+.futuristic-input { width: 100%; max-width: 700px; padding: 18px 25px; font-size: 1.1em; color: var(--text-light); background-color: var(--card-bg); border: 1px solid var(--border-dark); border-radius: 50px; outline: none; transition: all 0.4s ease; box-shadow: 0 0 10px rgba(0, 240, 255, 0.1), inset 0 0 5px rgba(0, 240, 255, 0.05); }
 .futuristic-input::placeholder { color: var(--text-muted); opacity: 0.7; }
 .futuristic-input:focus { border-color: var(--primary-glow); box-shadow: 0 0 20px var(--primary-glow), inset 0 0 10px rgba(0, 240, 255, 0.2); }
 .input-glow { /* Style de l'ombre autour du champ de recherche */ }
