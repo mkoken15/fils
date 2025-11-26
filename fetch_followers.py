@@ -3,11 +3,11 @@ import os
 import json
 import time
 
-# --- Récupération des secrets d'environnement ---
-L_USERNAME = os.environ.get('INSTA_USERNAME')
-L_SESSION_ID = os.environ.get('INSTA_SESSION_ID')
+# --- Configuration et Récupération des secrets d'environnement ---
+L_USERNAME = os.environ.get('INSTA_USERNAME') # Nom d'utilisateur
+L_SESSION_ID = os.environ.get('INSTA_SESSION_ID') # Session ID (Cookie)
 
-TARGET_PROFILE = L_USERNAME # Le profil à scraper est généralement le vôtre
+TARGET_PROFILE = L_USERNAME 
 OUTPUT_FILE = 'fils/followers_data.json' # Assurez-vous que ce chemin est correct
 
 # --- Initialisation Instaloader ---
@@ -15,6 +15,12 @@ L = instaloader.Instaloader()
 
 # --- 1. Créer une session à partir du Session ID ---
 try:
+    # AJOUTÉ : Vérification initiale pour s'assurer que les secrets sont présents
+    if not L_USERNAME or not L_SESSION_ID:
+        raise EnvironmentError("Erreur: Les secrets INSTA_USERNAME ou INSTA_SESSION_ID n'ont pas été chargés.")
+        
+    print(f"Tentative de connexion avec Session ID pour l'utilisateur: {L_USERNAME}")
+
     # Simuler une connexion réussie en utilisant le session ID
     L.context.store_session_info(L_USERNAME, {"sessionid": L_SESSION_ID})
     
@@ -38,7 +44,7 @@ except Exception as e:
     data = {
         "timestamp": int(time.time()),
         "followers": 0,
-        "status": f"failed_instaloader_auth: {e.__class__.__name__}"
+        "status": f"failed_instaloader_auth: {e.__class__.__name__} - {str(e)[:50]}..."
     }
 
 finally:
