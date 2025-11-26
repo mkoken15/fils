@@ -122,9 +122,10 @@ main { flex: 1; max-width: 1200px; width: 90%; margin: 40px auto; position: rela
 #project-links { 
     display: grid; 
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-    gap: 15px; /* MODIFIÉ : Réduit l'espace entre les cartes pour les rapprocher */
-    max-width: 900px; /* AJOUTÉ : Définit une largeur maximale pour éviter l'étirement excessif */
-    margin: 0 auto; /* AJOUTÉ : Centre la grille elle-même */
+    gap: 25px; /* MODIFIÉ : Réduit l'espace entre les cartes pour les rapprocher */
+    max-width: 600px; 
+    margin: 0 auto; 
+    justify-content: center;
 }
 .project-card { 
     position: relative; 
