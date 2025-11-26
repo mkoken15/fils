@@ -1,0 +1,120 @@
+/* --- Styles pour la Section Compétences (dans archive.html) --- */
+
+#skills-section {
+    padding: 20px;
+    max-width: 900px;
+    margin: 40px auto;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-dark);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), inset 0 0 5px rgba(255, 255, 255, 0.05);
+}
+
+.section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2em;
+    color: var(--primary-glow);
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: 20px;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.8);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 25px;
+    justify-content: center;
+    margin-bottom: 60px;
+}
+
+.skill-card {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px var(--primary-glow);
+}
+
+.skill-icon {
+    font-size: 2.8em;
+    color: var(--secondary-glow);
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+.skill-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2em;
+    color: var(--text-light);
+    margin-bottom: 5px;
+}
+
+.skill-level {
+    font-size: 0.9em;
+    color: var(--text-muted);
+}
+
+.soft-skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 0;
+}
+
+.soft-skill-item {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(233, 0, 255, 0.2);
+    border-radius: 20px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    color: var(--text-light);
+    font-family: 'Share Tech Mono', monospace;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.soft-skill-item:hover {
+    background-color: rgba(233, 0, 255, 0.1);
+    transform: translateY(-3px);
+}
+
+.soft-skill-item i {
+    color: var(--secondary-glow);
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+/* RESPONSIVE pour les petites écrans */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 1.6em;
+    }
+    .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 15px;
+    }
+    .skill-icon {
+        font-size: 2.2em;
+    }
+    .skill-name {
+        font-size: 1em;
+    }
+    .soft-skill-item {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+    .soft-skill-item i {
+        margin-right: 8px;
+    }
+}
