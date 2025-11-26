@@ -2,124 +2,247 @@
 
 .back-button-container {
     margin-top: 30px;
+    text-align: right; /* Aligne le bouton de retour à droite */
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 20px; /* Petit padding pour éviter de coller le bord */
 }
 
-#skills-section {
-    padding: 20px;
-    max-width: 900px;
-    margin: 40px auto;
-    background-color: var(--card-bg);
+/* Ajustement du bouton de retour */
+.futuristic-shop-button {
+    background-color: rgba(0, 0, 0, 0.4);
     border: 1px solid var(--border-dark);
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), inset 0 0 5px rgba(255, 255, 255, 0.05);
+    color: var(--text-light);
+    font-family: 'Share Tech Mono', monospace;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 5px rgba(0, 240, 255, 0.3); /* Léger glow par défaut */
+}
+
+.futuristic-shop-button:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+    border-color: var(--primary-glow);
+    color: var(--primary-glow);
+    box-shadow: 0 0 15px var(--primary-glow); /* Glow plus intense au survol */
+}
+
+/* Conteneur principal de la section Compétences */
+#skills-section {
+    padding: 40px 20px;
+    max-width: 1000px; /* Élargit légèrement le conteneur */
+    margin: 40px auto;
+    background-color: rgba(0, 0, 0, 0.2); /* Fond plus transparent */
+    border: 1px solid rgba(0, 240, 255, 0.2); /* Bordure néon discrète */
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.2), inset 0 0 10px rgba(0, 240, 255, 0.1);
+    backdrop-filter: blur(5px); /* Effet de flou sur l'arrière-plan */
 }
 
 .section-title {
     font-family: 'Orbitron', sans-serif;
-    font-size: 2em;
-    color: var(--primary-glow);
-    text-align: center;
-    margin-bottom: 40px;
+    font-size: 2.5em; /* Plus grand */
+    color: #E0FFFF; /* Bleu clair néon */
+    text-align: left; /* Alignement à gauche */
+    margin-bottom: 30px;
     margin-top: 20px;
-    text-shadow: 0 0 10px rgba(0, 240, 255, 0.8);
+    text-shadow: 0 0 15px rgba(0, 240, 255, 0.8), 0 0 25px rgba(0, 240, 255, 0.6); /* Glow intense */
+    border-bottom: 2px solid rgba(0, 240, 255, 0.3); /* Ligne de séparation */
+    padding-bottom: 10px;
 }
 
-.skills-grid {
+.soft-skills-title {
+    color: #FFC0CB; /* Rose néon pour les soft skills */
+    text-shadow: 0 0 15px rgba(255, 0, 255, 0.8), 0 0 25px rgba(255, 0, 255, 0.6);
+    border-bottom-color: rgba(255, 0, 255, 0.3);
+    margin-top: 60px; /* Plus d'espace au-dessus des soft skills */
+}
+
+
+/* --- Grille des compétences techniques (Hexagones) --- */
+.tech-skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 25px;
+    /* Adapte les colonnes pour que les hexagones soient bien alignés */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); 
+    gap: 30px 40px; /* Espace vertical et horizontal entre les hexagones */
     justify-content: center;
     margin-bottom: 60px;
+    padding: 0 20px; /* Padding pour ne pas coller les bords de la section */
 }
 
-.skill-card {
-    background-color: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(0, 240, 255, 0.2);
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
+.skill-hexagon {
+    position: relative;
+    width: 120px; /* Largeur de l'hexagone */
+    height: calc(120px * 0.866); /* Hauteur basée sur la géométrie hexagonale */
+    background: rgba(0, 0, 0, 0.4);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: var(--text-light);
+    font-family: 'Share Tech Mono', monospace;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+    cursor: default; /* Indique que ce n'est pas cliquable */
 }
 
-.skill-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 20px var(--primary-glow);
+.skill-hexagon::before {
+    content: attr(data-level); /* Affiche le niveau de compétence */
+    position: absolute;
+    bottom: -25px; /* Positionne le texte du niveau en dessous */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8em;
+    color: #E0FFFF; /* Couleur néon */
+    font-family: 'Orbitron', sans-serif;
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.7);
+    white-space: nowrap; /* Empêche le texte de se briser */
+    opacity: 0.8;
 }
+
+.skill-hexagon:hover {
+    transform: scale(1.05);
+    background: rgba(0, 240, 255, 0.1);
+    border-color: var(--primary-glow);
+    box-shadow: 0 0 20px var(--primary-glow), inset 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+.skill-hexagon:hover .skill-icon {
+    color: var(--primary-glow); /* L'icône change de couleur au survol */
+    text-shadow: 0 0 15px var(--primary-glow);
+}
+
 
 .skill-icon {
-    font-size: 2.8em;
-    color: var(--secondary-glow);
-    margin-bottom: 15px;
-    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+    font-size: 3em; /* Icônes plus grandes */
+    color: #64FFDA; /* Vert aqua néon */
+    margin-bottom: 5px;
+    text-shadow: 0 0 10px rgba(100, 255, 218, 0.7);
+    transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
 .skill-name {
     font-family: 'Orbitron', sans-serif;
-    font-size: 1.2em;
+    font-size: 1.1em;
     color: var(--text-light);
-    margin-bottom: 5px;
+    margin-top: 5px;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }
 
-.skill-level {
-    font-size: 0.9em;
-    color: var(--text-muted);
-}
-
-.soft-skills-list {
+/* --- Grille des compétences humaines (Soft Skills) --- */
+.soft-skills-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 15px;
-    list-style: none; /* Supprime les puces par défaut si c'était une liste */
-    padding: 0;
+    gap: 20px;
+    padding: 0 20px;
 }
 
 .soft-skill-item {
-    background-color: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(233, 0, 255, 0.2);
-    border-radius: 20px;
-    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 0, 255, 0.2); /* Bordure rose néon */
+    border-radius: 10px; /* Bords légèrement moins arrondis pour un look plus tech */
+    padding: 15px 25px;
     display: flex;
     align-items: center;
     color: var(--text-light);
     font-family: 'Share Tech Mono', monospace;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 8px rgba(255, 0, 255, 0.3);
 }
 
 .soft-skill-item:hover {
-    background-color: rgba(233, 0, 255, 0.1);
-    transform: translateY(-3px);
+    background-color: rgba(255, 0, 255, 0.1);
+    transform: translateY(-5px);
+    border-color: #FFC0CB; /* Rose vif au survol */
+    box-shadow: 0 0 15px #FFC0CB, inset 0 0 8px rgba(255, 0, 255, 0.5);
 }
 
-.soft-skill-item i {
-    color: var(--secondary-glow);
-    margin-right: 10px;
-    font-size: 1.2em;
+.soft-skill-icon {
+    color: #FF69B4; /* Rose clair pour les icônes */
+    margin-right: 15px;
+    font-size: 1.5em;
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.7);
+    transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
-/* RESPONSIVE pour les petites écrans */
+.soft-skill-item:hover .soft-skill-icon {
+    color: #FFC0CB; /* Rose vif au survol */
+    text-shadow: 0 0 15px #FFC0CB;
+}
+
+.soft-skill-name {
+    font-size: 1.1em;
+    color: var(--text-light);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+/* --- Media Queries pour le Responsive Design --- */
 @media (max-width: 768px) {
-    .section-title {
-        font-size: 1.6em;
+    #skills-section {
+        padding: 20px 15px;
     }
-    .skills-grid {
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 15px;
+    .section-title {
+        font-size: 2em;
+        text-align: center; /* Centre le titre sur mobile */
+        border-bottom: none; /* Supprime la ligne sur mobile si ça surcharge */
+        padding-bottom: 0;
+    }
+    .tech-skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 20px 30px;
+    }
+    .skill-hexagon {
+        width: 100px;
+        height: calc(100px * 0.866);
     }
     .skill-icon {
-        font-size: 2.2em;
+        font-size: 2.5em;
     }
     .skill-name {
-        font-size: 1em;
-    }
-    .soft-skill-item {
-        padding: 8px 15px;
         font-size: 0.9em;
     }
-    .soft-skill-item i {
-        margin-right: 8px;
+    .skill-hexagon::before {
+        bottom: -20px;
+        font-size: 0.7em;
+    }
+    .soft-skills-grid {
+        gap: 15px;
+    }
+    .soft-skill-item {
+        padding: 12px 20px;
+        font-size: 0.9em;
+    }
+    .soft-skill-icon {
+        font-size: 1.3em;
+        margin-right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 1.8em;
+    }
+    .tech-skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Plus petit sur très petits écrans */
+        gap: 15px 20px;
+    }
+    .skill-hexagon {
+        width: 80px;
+        height: calc(80px * 0.866);
+    }
+    .skill-icon {
+        font-size: 2em;
+    }
+    .skill-name {
+        font-size: 0.8em;
+    }
+    .skill-hexagon::before {
+        font-size: 0.6em;
+        bottom: -18px;
     }
 }
