@@ -1,4 +1,8 @@
-/* --- Styles pour la Section Compétences (dans archive.html) --- */
+/* --- Page Archive / Compétences --- */
+
+.back-button-container {
+    margin-top: 30px;
+}
 
 #skills-section {
     padding: 20px;
@@ -69,6 +73,7 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 15px;
+    list-style: none; /* Supprime les puces par défaut si c'était une liste */
     padding: 0;
 }
 
