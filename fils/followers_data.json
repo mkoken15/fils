@@ -1,5 +1,5 @@
 {
-    "timestamp": 1764149612,
+    "timestamp": 1764160702,
     "followers": 0,
-    "status": "failed_auth_no_old_data: AttributeError"
+    "status": "failed_auth_retaining_old_data: AttributeError"
 }
