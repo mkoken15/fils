@@ -1,15 +1,58 @@
-/* --- Page Archive / Compétences --- */
+/* --- Définition des Variables de Couleurs (Crucial pour le design néon) --- */
+:root {
+    /* Couleurs principales (à adapter à votre design index.html) */
+    --primary-color: #1a1a2e; /* Fond principal sombre */
+    --secondary-color: #0f3460; /* Couleur secondaire */
+    --text-light: #ffffff; /* Texte clair */
+    --text-muted: #aaaaaa; /* Texte secondaire */
 
-.back-button-container {
-    margin-top: 30px;
-    text-align: right; /* Aligne le bouton de retour à droite */
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-right: 20px; /* Petit padding pour éviter de coller le bord */
+    /* Couleurs de l'interface (néon) */
+    --primary-glow: #00f0ff; /* Bleu Cyan vif (pour le titre, les hexagones, etc.) */
+    --secondary-glow: #e900ff; /* Magenta/Rose vif (pour les soft skills) */
+    --border-dark: rgba(0, 240, 255, 0.2); /* Bordure discrète */
+    --card-bg: rgba(26, 26, 46, 0.7); /* Fond de carte semi-transparent */
 }
 
-/* Ajustement du bouton de retour */
+
+/* --- Styles Généraux (Si non présents dans un autre fichier CSS) --- */
+body {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    margin: 0;
+    padding: 0;
+    font-family: 'Share Tech Mono', monospace;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3em;
+    margin-bottom: 5px;
+}
+
+.gradient-text {
+    background-image: linear-gradient(45deg, var(--primary-glow), var(--secondary-glow));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+/* Style pour le bouton de retour */
+.back-button-container {
+    margin-top: 30px;
+    text-align: right;
+    max-width: 1000px; /* Aligné avec la section */
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 20px;
+}
+
 .futuristic-shop-button {
     background-color: rgba(0, 0, 0, 0.4);
     border: 1px solid var(--border-dark);
@@ -19,37 +62,39 @@
     border-radius: 8px;
     text-decoration: none;
     transition: all 0.3s ease;
-    box-shadow: 0 0 5px rgba(0, 240, 255, 0.3); /* Léger glow par défaut */
+    box-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
 }
 
 .futuristic-shop-button:hover {
     background-color: rgba(0, 0, 0, 0.6);
     border-color: var(--primary-glow);
     color: var(--primary-glow);
-    box-shadow: 0 0 15px var(--primary-glow); /* Glow plus intense au survol */
+    box-shadow: 0 0 15px var(--primary-glow);
 }
+
+/* --- Styles pour la Section Compétences (Design Hexagonal) --- */
 
 /* Conteneur principal de la section Compétences */
 #skills-section {
     padding: 40px 20px;
-    max-width: 1000px; /* Élargit légèrement le conteneur */
+    max-width: 1000px;
     margin: 40px auto;
-    background-color: rgba(0, 0, 0, 0.2); /* Fond plus transparent */
-    border: 1px solid rgba(0, 240, 255, 0.2); /* Bordure néon discrète */
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 240, 255, 0.2);
     border-radius: 20px;
     box-shadow: 0 0 30px rgba(0, 240, 255, 0.2), inset 0 0 10px rgba(0, 240, 255, 0.1);
-    backdrop-filter: blur(5px); /* Effet de flou sur l'arrière-plan */
+    backdrop-filter: blur(5px);
 }
 
 .section-title {
     font-family: 'Orbitron', sans-serif;
-    font-size: 2.5em; /* Plus grand */
+    font-size: 2.5em;
     color: #E0FFFF; /* Bleu clair néon */
-    text-align: left; /* Alignement à gauche */
+    text-align: left;
     margin-bottom: 30px;
     margin-top: 20px;
-    text-shadow: 0 0 15px rgba(0, 240, 255, 0.8), 0 0 25px rgba(0, 240, 255, 0.6); /* Glow intense */
-    border-bottom: 2px solid rgba(0, 240, 255, 0.3); /* Ligne de séparation */
+    text-shadow: 0 0 15px rgba(0, 240, 255, 0.8), 0 0 25px rgba(0, 240, 255, 0.6);
+    border-bottom: 2px solid rgba(0, 240, 255, 0.3);
     padding-bottom: 10px;
 }
 
@@ -57,26 +102,27 @@
     color: #FFC0CB; /* Rose néon pour les soft skills */
     text-shadow: 0 0 15px rgba(255, 0, 255, 0.8), 0 0 25px rgba(255, 0, 255, 0.6);
     border-bottom-color: rgba(255, 0, 255, 0.3);
-    margin-top: 60px; /* Plus d'espace au-dessus des soft skills */
+    margin-top: 60px;
 }
 
 
 /* --- Grille des compétences techniques (Hexagones) --- */
 .tech-skills-grid {
     display: grid;
-    /* Adapte les colonnes pour que les hexagones soient bien alignés */
+    /* Assure 5 colonnes pour un bon alignement en zigzag, ou auto-fit */
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); 
-    gap: 30px 40px; /* Espace vertical et horizontal entre les hexagones */
+    gap: 30px 40px; 
     justify-content: center;
     margin-bottom: 60px;
-    padding: 0 20px; /* Padding pour ne pas coller les bords de la section */
+    padding: 0 20px;
 }
 
 .skill-hexagon {
     position: relative;
-    width: 120px; /* Largeur de l'hexagone */
-    height: calc(120px * 0.866); /* Hauteur basée sur la géométrie hexagonale */
+    width: 120px; 
+    height: calc(120px * 0.866); /* Calcul géométrique pour un hexagone régulier */
     background: rgba(0, 0, 0, 0.4);
+    /* CREATION DE LA FORME HEXAGONALE */
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     display: flex;
     flex-direction: column;
@@ -87,21 +133,26 @@
     transition: all 0.3s ease;
     border: 1px solid rgba(0, 240, 255, 0.2);
     box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
-    cursor: default; /* Indique que ce n'est pas cliquable */
+    cursor: default;
 }
 
 .skill-hexagon::before {
-    content: attr(data-level); /* Affiche le niveau de compétence */
+    content: attr(data-level);
     position: absolute;
-    bottom: -25px; /* Positionne le texte du niveau en dessous */
+    bottom: -25px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 0.8em;
-    color: #E0FFFF; /* Couleur néon */
+    color: #E0FFFF; 
     font-family: 'Orbitron', sans-serif;
     text-shadow: 0 0 8px rgba(0, 240, 255, 0.7);
-    white-space: nowrap; /* Empêche le texte de se briser */
+    white-space: nowrap;
     opacity: 0.8;
+}
+
+.skill-hexagon:nth-child(even) {
+    /* Décalage des hexagones pairs pour créer l'effet de nid d'abeille */
+    transform: translateY(calc(120px * 0.433)); 
 }
 
 .skill-hexagon:hover {
@@ -111,14 +162,8 @@
     box-shadow: 0 0 20px var(--primary-glow), inset 0 0 10px rgba(0, 240, 255, 0.5);
 }
 
-.skill-hexagon:hover .skill-icon {
-    color: var(--primary-glow); /* L'icône change de couleur au survol */
-    text-shadow: 0 0 15px var(--primary-glow);
-}
-
-
 .skill-icon {
-    font-size: 3em; /* Icônes plus grandes */
+    font-size: 3em;
     color: #64FFDA; /* Vert aqua néon */
     margin-bottom: 5px;
     text-shadow: 0 0 10px rgba(100, 255, 218, 0.7);
@@ -144,8 +189,8 @@
 
 .soft-skill-item {
     background-color: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 0, 255, 0.2); /* Bordure rose néon */
-    border-radius: 10px; /* Bords légèrement moins arrondis pour un look plus tech */
+    border: 1px solid rgba(255, 0, 255, 0.2);
+    border-radius: 10px;
     padding: 15px 25px;
     display: flex;
     align-items: center;
@@ -158,21 +203,16 @@
 .soft-skill-item:hover {
     background-color: rgba(255, 0, 255, 0.1);
     transform: translateY(-5px);
-    border-color: #FFC0CB; /* Rose vif au survol */
+    border-color: #FFC0CB;
     box-shadow: 0 0 15px #FFC0CB, inset 0 0 8px rgba(255, 0, 255, 0.5);
 }
 
 .soft-skill-icon {
-    color: #FF69B4; /* Rose clair pour les icônes */
+    color: #FF69B4;
     margin-right: 15px;
     font-size: 1.5em;
     text-shadow: 0 0 10px rgba(255, 0, 255, 0.7);
     transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-
-.soft-skill-item:hover .soft-skill-icon {
-    color: #FFC0CB; /* Rose vif au survol */
-    text-shadow: 0 0 15px #FFC0CB;
 }
 
 .soft-skill-name {
@@ -183,14 +223,9 @@
 
 /* --- Media Queries pour le Responsive Design --- */
 @media (max-width: 768px) {
-    #skills-section {
-        padding: 20px 15px;
-    }
     .section-title {
         font-size: 2em;
-        text-align: center; /* Centre le titre sur mobile */
-        border-bottom: none; /* Supprime la ligne sur mobile si ça surcharge */
-        padding-bottom: 0;
+        text-align: center;
     }
     .tech-skills-grid {
         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -200,49 +235,30 @@
         width: 100px;
         height: calc(100px * 0.866);
     }
+    .skill-hexagon:nth-child(even) {
+        transform: translateY(calc(100px * 0.433)); 
+    }
     .skill-icon {
         font-size: 2.5em;
-    }
-    .skill-name {
-        font-size: 0.9em;
-    }
-    .skill-hexagon::before {
-        bottom: -20px;
-        font-size: 0.7em;
     }
     .soft-skills-grid {
         gap: 15px;
     }
     .soft-skill-item {
         padding: 12px 20px;
-        font-size: 0.9em;
-    }
-    .soft-skill-icon {
-        font-size: 1.3em;
-        margin-right: 10px;
     }
 }
 
 @media (max-width: 480px) {
-    .section-title {
-        font-size: 1.8em;
-    }
     .tech-skills-grid {
-        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Plus petit sur très petits écrans */
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
         gap: 15px 20px;
     }
     .skill-hexagon {
         width: 80px;
         height: calc(80px * 0.866);
     }
-    .skill-icon {
-        font-size: 2em;
-    }
-    .skill-name {
-        font-size: 0.8em;
-    }
-    .skill-hexagon::before {
-        font-size: 0.6em;
-        bottom: -18px;
+    .skill-hexagon:nth-child(even) {
+        transform: translateY(calc(80px * 0.433)); 
     }
 }
