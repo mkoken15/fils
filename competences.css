@@ -1,20 +1,19 @@
-/* --- Définition des Variables de Couleurs (Crucial pour le design néon) --- */
+/* --- Définition des Variables de Couleurs (GLOBAL) --- */
 :root {
-    /* Couleurs principales (à adapter à votre design index.html) */
-    --primary-color: #1a1a2e; /* Fond principal sombre */
-    --secondary-color: #0f3460; /* Couleur secondaire */
-    --text-light: #ffffff; /* Texte clair */
-    --text-muted: #aaaaaa; /* Texte secondaire */
+    --primary-color: #0d0d1a; /* Fond principal très sombre */
+    --secondary-color: #1a1a2e; /* Couleur secondaire pour les éléments */
+    --text-light: #e0e0e0; /* Texte clair par défaut */
+    --text-muted: #a0a0a0; /* Texte secondaire */
 
-    /* Couleurs de l'interface (néon) */
-    --primary-glow: #00f0ff; /* Bleu Cyan vif (pour le titre, les hexagones, etc.) */
-    --secondary-glow: #e900ff; /* Magenta/Rose vif (pour les soft skills) */
+    --primary-glow: #00f0ff; /* Bleu Cyan vif */
+    --secondary-glow: #e900ff; /* Magenta/Rose vif */
     --border-dark: rgba(0, 240, 255, 0.2); /* Bordure discrète */
     --card-bg: rgba(26, 26, 46, 0.7); /* Fond de carte semi-transparent */
+    --icon-glow-tech: #64FFDA; /* Vert aqua néon pour icônes tech */
+    --icon-glow-soft: #FF69B4; /* Rose clair pour icônes soft */
 }
 
-
-/* --- Styles Généraux (Si non présents dans un autre fichier CSS) --- */
+/* --- Styles Généraux --- */
 body {
     background-color: var(--primary-color);
     color: var(--text-light);
@@ -23,34 +22,88 @@ body {
     font-family: 'Share Tech Mono', monospace;
     line-height: 1.6;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column; /* Permet au footer de rester en bas */
+    overflow-x: hidden; /* Empêche le défilement horizontal */
 }
 
+/* Animation d'arrière-plan (similaire à index.html) */
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top left, rgba(0, 240, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at bottom right, rgba(233, 0, 255, 0.1) 0%, transparent 20%);
+    z-index: -1; /* Place l'animation derrière le contenu */
+    animation: backgroundGlow 20s infinite alternate; /* Animation de glow */
+}
+
+@keyframes backgroundGlow {
+    0% {
+        background: radial-gradient(circle at top left, rgba(0, 240, 255, 0.1) 0%, transparent 20%),
+                    radial-gradient(circle at bottom right, rgba(233, 0, 255, 0.1) 0%, transparent 20%);
+    }
+    50% {
+        background: radial-gradient(circle at center, rgba(0, 240, 255, 0.15) 0%, transparent 25%),
+                    radial-gradient(circle at bottom left, rgba(233, 0, 255, 0.15) 0%, transparent 25%);
+    }
+    100% {
+        background: radial-gradient(circle at top right, rgba(0, 240, 255, 0.1) 0%, transparent 20%),
+                    radial-gradient(circle at bottom left, rgba(233, 0, 255, 0.1) 0%, transparent 20%);
+    }
+}
+
+
+/* --- Header --- */
 header {
     text-align: center;
-    padding: 20px;
+    padding: 30px 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 10;
+}
+
+#system-time {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.2em;
+    color: var(--primary-glow);
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
 }
 
 h1 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 3em;
-    margin-bottom: 5px;
+    font-size: 3.5em; /* Taille plus grande pour le titre */
+    margin: 0;
+    line-height: 1;
+}
+
+.subtitle {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.1em;
+    color: var(--text-muted);
+    margin-top: 10px;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
 }
 
 .gradient-text {
     background-image: linear-gradient(45deg, var(--primary-glow), var(--secondary-glow));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); /* Effet de glow pour le texte */
 }
 
-/* Style pour le bouton de retour */
+/* Bouton de retour (placé dans le header) */
 .back-button-container {
-    margin-top: 30px;
-    text-align: right;
-    max-width: 1000px; /* Aligné avec la section */
-    margin-left: auto;
-    margin-right: auto;
-    padding-right: 20px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
 
 .futuristic-shop-button {
@@ -63,6 +116,12 @@ h1 {
     text-decoration: none;
     transition: all 0.3s ease;
     box-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
+    display: flex; /* Permet l'alignement icône/texte */
+    align-items: center;
+}
+
+.futuristic-shop-button i {
+    margin-right: 8px; /* Espace entre l'icône et le texte */
 }
 
 .futuristic-shop-button:hover {
@@ -72,18 +131,28 @@ h1 {
     box-shadow: 0 0 15px var(--primary-glow);
 }
 
+/* --- Main Content --- */
+main {
+    flex: 1; /* Permet à la section principale de prendre l'espace disponible */
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Aligne le contenu en haut du main */
+}
+
+
 /* --- Styles pour la Section Compétences (Design Hexagonal) --- */
 
-/* Conteneur principal de la section Compétences */
 #skills-section {
     padding: 40px 20px;
-    max-width: 1000px;
-    margin: 40px auto;
+    max-width: 1000px; /* Élargit le conteneur */
+    width: 100%; /* S'assure qu'il utilise le max-width */
     background-color: rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(0, 240, 255, 0.2);
     border-radius: 20px;
     box-shadow: 0 0 30px rgba(0, 240, 255, 0.2), inset 0 0 10px rgba(0, 240, 255, 0.1);
     backdrop-filter: blur(5px);
+    margin-top: 20px; /* Espace par rapport au header */
 }
 
 .section-title {
@@ -109,8 +178,8 @@ h1 {
 /* --- Grille des compétences techniques (Hexagones) --- */
 .tech-skills-grid {
     display: grid;
-    /* Assure 5 colonnes pour un bon alignement en zigzag, ou auto-fit */
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); 
+    /* 5 colonnes sur les grands écrans pour l'effet d'image */
+    grid-template-columns: repeat(5, minmax(120px, 1fr)); 
     gap: 30px 40px; 
     justify-content: center;
     margin-bottom: 60px;
@@ -120,9 +189,8 @@ h1 {
 .skill-hexagon {
     position: relative;
     width: 120px; 
-    height: calc(120px * 0.866); /* Calcul géométrique pour un hexagone régulier */
+    height: calc(120px * 0.866); 
     background: rgba(0, 0, 0, 0.4);
-    /* CREATION DE LA FORME HEXAGONALE */
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     display: flex;
     flex-direction: column;
@@ -150,10 +218,14 @@ h1 {
     opacity: 0.8;
 }
 
-.skill-hexagon:nth-child(even) {
-    /* Décalage des hexagones pairs pour créer l'effet de nid d'abeille */
-    transform: translateY(calc(120px * 0.433)); 
+/* Décalage des hexagones impairs pour créer l'effet de nid d'abeille de l'image */
+/* C'est plutôt la 2ème ligne qui est décalée, donc les éléments 2, 4, 6... */
+.tech-skills-grid div:nth-child(n+2):nth-child(-n+4),
+.tech-skills-grid div:nth-child(n+6):nth-child(-n+8) {
+    transform: translateY(calc(120px * 0.433));
 }
+/* Réajustement si vous avez plus de lignes pour le décalage, basé sur la démo de l'image */
+
 
 .skill-hexagon:hover {
     transform: scale(1.05);
@@ -164,7 +236,7 @@ h1 {
 
 .skill-icon {
     font-size: 3em;
-    color: #64FFDA; /* Vert aqua néon */
+    color: var(--icon-glow-tech); /* Utilise la variable pour la couleur */
     margin-bottom: 5px;
     text-shadow: 0 0 10px rgba(100, 255, 218, 0.7);
     transition: color 0.3s ease, text-shadow 0.3s ease;
@@ -208,7 +280,7 @@ h1 {
 }
 
 .soft-skill-icon {
-    color: #FF69B4;
+    color: var(--icon-glow-soft); /* Utilise la variable pour la couleur */
     margin-right: 15px;
     font-size: 1.5em;
     text-shadow: 0 0 10px rgba(255, 0, 255, 0.7);
@@ -221,44 +293,136 @@ h1 {
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
 }
 
+/* --- Footer --- */
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-top: 1px solid rgba(233, 0, 255, 0.1);
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
+    margin-top: auto; /* Pousse le footer vers le bas */
+    z-index: 10;
+}
+
+footer p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.9em;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+}
+
 /* --- Media Queries pour le Responsive Design --- */
-@media (max-width: 768px) {
-    .section-title {
-        font-size: 2em;
-        text-align: center;
-    }
+@media (max-width: 1024px) {
     .tech-skills-grid {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-        gap: 20px 30px;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* 3-4 colonnes */
+        gap: 25px 30px;
     }
     .skill-hexagon {
         width: 100px;
         height: calc(100px * 0.866);
     }
-    .skill-hexagon:nth-child(even) {
-        transform: translateY(calc(100px * 0.433)); 
+    .skill-hexagon:nth-child(n+2):nth-child(-n+4),
+    .skill-hexagon:nth-child(n+6):nth-child(-n+8) { /* Ajuster pour le décalage */
+        transform: translateY(calc(100px * 0.433));
+    }
+}
+
+
+@media (max-width: 768px) {
+    #system-time, .back-button-container {
+        position: static; /* Positionnement statique pour mobile */
+        text-align: center;
+        margin-bottom: 15px;
+        width: auto;
+    }
+    header {
+        padding-bottom: 10px;
+    }
+    h1 {
+        font-size: 2.5em;
+    }
+    .subtitle {
+        font-size: 1em;
+    }
+    .futuristic-shop-button {
+        margin: 0 auto; /* Centrer le bouton */
+    }
+
+    #skills-section {
+        padding: 20px 15px;
+    }
+    .section-title {
+        font-size: 2em;
+        text-align: center;
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+    .tech-skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); /* 2-3 colonnes */
+        gap: 15px 20px;
+    }
+    .skill-hexagon {
+        width: 90px;
+        height: calc(90px * 0.866);
+    }
+    .skill-hexagon:nth-child(n+2):nth-child(-n+4),
+    .skill-hexagon:nth-child(n+6):nth-child(-n+8) { /* Ajuster pour le décalage */
+        transform: translateY(calc(90px * 0.433));
     }
     .skill-icon {
         font-size: 2.5em;
+    }
+    .skill-name {
+        font-size: 0.9em;
+    }
+    .skill-hexagon::before {
+        bottom: -20px;
+        font-size: 0.7em;
     }
     .soft-skills-grid {
         gap: 15px;
     }
     .soft-skill-item {
         padding: 12px 20px;
+        font-size: 0.9em;
+    }
+    .soft-skill-icon {
+        font-size: 1.3em;
+        margin-right: 10px;
     }
 }
 
 @media (max-width: 480px) {
+    h1 {
+        font-size: 2em;
+    }
+    .subtitle {
+        font-size: 0.9em;
+    }
+    .section-title {
+        font-size: 1.6em;
+    }
     .tech-skills-grid {
-        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-        gap: 15px 20px;
+        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr)); /* Encore plus petit */
+        gap: 10px 15px;
     }
     .skill-hexagon {
-        width: 80px;
-        height: calc(80px * 0.866);
+        width: 70px;
+        height: calc(70px * 0.866);
     }
-    .skill-hexagon:nth-child(even) {
-        transform: translateY(calc(80px * 0.433)); 
+    .skill-hexagon:nth-child(n+2):nth-child(-n+4),
+    .skill-hexagon:nth-child(n+6):nth-child(-n+8) { /* Ajuster pour le décalage */
+        transform: translateY(calc(70px * 0.433));
+    }
+    .skill-icon {
+        font-size: 2em;
+    }
+    .skill-name {
+        font-size: 0.8em;
+    }
+    .skill-hexagon::before {
+        font-size: 0.6em;
+        bottom: -18px;
     }
 }
